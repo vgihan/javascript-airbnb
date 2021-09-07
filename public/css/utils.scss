@@ -11,20 +11,24 @@
     position: relative;
     border-radius: 50px;
     border: 1px solid #BDBDBD;
-    padding-left: 50px;
-    padding-right: 30px;
     &_item:first-child:last-child {
         border-right: 1px solid #BDBDBD;
     }
     &_item {
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+        height: 100%;
+        padding: 0px 30px 0px 30px;
+        &:not(:last-child):hover {
+            border-radius: 50px;
+            background-color: #ddd;
+            cursor: pointer;
+        }
         .item_title {
-            display: flex;
-            flex-direction: column;
-            justify-content: center;
-            height: 60px;
-            p {
-                margin-bottom: 10px;
-            }
+            margin-bottom: 10px;
+        }
+        .item_content {
             .wrap {
                 color: #999;
                 left: 0px;
@@ -37,6 +41,7 @@
     }
 }
 input[type=text] {
+    background: transparent;
     border: none;
     cursor: pointer;
     &:focus {
