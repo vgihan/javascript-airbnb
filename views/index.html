@@ -24,7 +24,7 @@
         <div class="login_btn"></div>
       </header>
       <div class="search_bar">
-        <div class="search_bar_item checkin">
+        <div class="search_bar_item checkin calendar_btn">
           <div class="item_title">
             <p>체크인</p></div>
           <div class="item_content">
@@ -32,7 +32,7 @@
             <input type="text" class="wrap" value="날짜 입력" readonly>
           </div>
         </div>
-        <div class="search_bar_item checkout">
+        <div class="search_bar_item checkout calendar_btn">
           <div class="item_title">
             <p>체크아웃</p></div>
           <div class="item_content">
@@ -62,13 +62,48 @@
           </div>
         </div>
       </div>
-      <div class="search_dropdown date">
+      <div class="search_dropdown date hidden">
+        <div class="cal_box left">
+          <div class="text_line">
+            <div class="left_btn"></div>
+            <div class="date_info">
+              <p></p>
+            </div>
+          </div>
+          <ul class="week_line">
+            <li>일</li>
+            <li>월</li>
+            <li>화</li>
+            <li>수</li>
+            <li>목</li>
+            <li>금</li>
+            <li>토</li>
+          </ul>
+          <div class="cal_date"></div>
+        </div>
+        <div class="cal_box right">
+          <div class="text_line">
+            <div class="date_info">
+              <p></p>
+            </div>
+            <div class="right_btn"></div>
+          </div>
+          <ul class="week_line">
+            <li>일</li>
+            <li>월</li>
+            <li>화</li>
+            <li>수</li>
+            <li>목</li>
+            <li>금</li>
+            <li>토</li>
+          </ul>
+          <div class="cal_date"></div>
+        </div>
+      </div>
+      <div class="search_dropdown price hidden">
         
       </div>
-      <div class="search_dropdown price">
-        
-      </div>
-      <div class="search_dropdown number">
+      <div class="search_dropdown number hidden">
         
       </div>
     </div>

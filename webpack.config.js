@@ -3,7 +3,14 @@ const MiniCssExtractPlugin = require('mini-css-extract-plugin');
 
 module.exports = {
     entry: {
-        main: ['./public/js/main.js', './public/css/main.scss']
+        main: [
+            './public/js/main.js',
+            './public/css/main.scss', 
+            './public/css/utils.scss',
+            './public/css/reset.scss',
+            './public/css/font.scss',
+            './public/font/NotoSansKR-Light.otf',
+        ]
     },
     output: {
         path: path.resolve(__dirname, "assets"),
@@ -28,7 +35,7 @@ module.exports = {
                 use: [MiniCssExtractPlugin.loader, 'css-loader', 'sass-loader'],
             },
             {
-                test: /\.(png|svg|jpg|gif)$/,
+                test: /\.(png|svg|jpg|gif|otf)$/,
                 use: ['file-loader'],
             },
         ],
