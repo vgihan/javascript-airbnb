@@ -17,7 +17,7 @@
         justify-content: center;
         height: 100%;
         padding: 0px 30px 0px 30px;
-        &:not(:last-child):hover {
+        &:not(.checked_item):not(:last-child):hover {
             border-radius: 50px;
             background-color: #ddd;
             cursor: pointer;
