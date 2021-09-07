@@ -1,11 +1,65 @@
 <!DOCTYPE html>
 <html>
   <head>
-    <title>test</title>
-    <link rel='stylesheet' href='/stylesheets/style.css' />
+    <title>Airbnb</title>
+    <link rel="stylesheet" type="text/css" href="css/main.css">
+    <script type="text/javascript" src="js/main.js" defer></script>
   </head>
   <body>
-    <p id="test"></p>
-    <script type="text/javascript" src="javascripts/bundle.js"></script>
+    <div class="content_wrap">
+      <header>
+        <div class="header_background"></div>
+        <div class="logo"></div>
+        <div class="header_menu">
+          <div class="header_menu_item room">
+            <p>숙소</p>
+          </div>
+          <div class="header_menu_item experience">
+            <p>체험</p>
+          </div>
+          <div class="header_menu_item online">
+            <p>온라인 체험</p>
+          </div>
+        </div>
+        <div class="user_btn"></div>
+      </header>
+      <div class="search_bar">
+        <div class="search_bar_item checkin">
+          <div class="item_title">
+            <p>체크인</p>
+            <input type="text" class="value" required>
+            <input type="text" class="wrap" readonly>
+          </div>
+          <div class="item_content"></div>
+        </div>
+        <div class="search_bar_item checkout">
+          <div class="item_title">
+            <p>체크아웃</p>
+            <input type="text" class="value" required>
+            <input type="text" class="wrap" readonly>
+          </div>
+          <div class="item_content"></div>
+        </div>
+        <div class="search_bar_item price">
+          <div class="item_title">
+            <p>요금</p>
+            <input type="text" class="value" required>
+            <input type="text" class="wrap" readonly>
+          </div>
+          <div class="item_content"></div>
+        </div>
+        <div class="search_bar_item number">
+          <div class="item_title">
+            <p>인원</p>
+            <input type="text" class="value" required>
+            <input type="text" class="wrap" readonly>
+          </div>
+          <div class="item_content"></div>
+        </div>
+        <div class="search_bar_item submit">
+          <a class="submit_btn"></a>
+        </div>
+      </div>
+    </div>
   </body>
 </html>
