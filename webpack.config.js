@@ -1,24 +1,38 @@
 const path = require('path');
+const MiniCssExtractPlugin = require('mini-css-extract-plugin');
 
 module.exports = {
-    mode: "development",
-    entry: "./src/index.js",
-    output: {
-        publicPath: '/',
-        path: path.resolve(__dirname, "public/javascripts"),
-        filename: "bundle.js",
+    entry: {
+        main: ['./public/js/main.js', './public/css/main.scss', './public/css/utils.scss', './public/css/reset.scss'],
     },
+    output: {
+        path: path.resolve(__dirname, "assets"),
+        filename: "js/[name].js",
+    },
+    plugins: [
+        new MiniCssExtractPlugin({ filename: 'css/[name].css' })
+    ],
     devServer: {
       contentBase: path.resolve(__dirname, 'src')
     },
-    devtool: 'inline-source-map',
     module: {
-        rules: [{
-            test: /\.js$/,
-            exclude: /node_modules/,
-            use: {
-                loader: 'babel-loader'
-            }
-        }],
+        rules: [
+            {
+                test: /\.js$/,
+                exclude: /node_modules/,
+                use: ['babel-loader'],
+            },
+            {
+                test: /\.s[ac]ss$/i,
+                exclude: /node_modules/,
+                use: [MiniCssExtractPlugin.loader, 'css-loader', 'sass-loader'],
+            },
+            {
+                test: /\.(png|svg|jpg|gif)$/,
+                use: ['file-loader'],
+            },
+        ],
     },
+    devtool: 'inline-source-map',
+    mode: "development",
 }
