@@ -1,9 +1,3 @@
-import '../css/main.scss';
+import addImage from "./add_image.js";
 
-function component() {
-  const element = document.createElement('div');
-  element.classList.add("hello");
-  return element;
-}
-
-document.body.appendChild(component());
+addImage();
