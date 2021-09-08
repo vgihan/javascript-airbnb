@@ -9,7 +9,7 @@ export class SearchItemView {
         this.placeholder = placeholder;
         this.isChecked = UNCHECKED;
         this.render();
-        this.element = document.querySelector(`.search_bar.${this.className}`);
+        this.element = document.querySelector(`.search_bar_item.${this.className}`);
     }
     render() {
         const html = `<div class="search_bar_item ${this.className}">
