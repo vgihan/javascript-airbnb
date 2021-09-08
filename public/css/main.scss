@@ -72,39 +72,35 @@
         }
     }
     .search_dropdown {
-        display: flex;
-        flex-direction: row;
-        align-items: center;
-        justify-content: center;
-
-        position: relative;
-        top: 30px;
-        width: 1100px;
-        height: 500px;
-
-        animation: open_dropdown 0.5s forwards;
-        .cal_box {
-            width: 410px;
-            height: 360px;
-            padding: 70px 70px 70px 70px;
-            .text_line {
-                display: flex;
-                justify-content: space-between;
-                height: 50px;
-            }
-            .week_line {
-                display: flex;
-                flex-direction: row;
-                justify-content: space-around;
-                color: #999;
+        .dropdown_item.calendar {
+            display: flex;
+            flex-direction: row;
+            align-items: center;
+            justify-content: center;
+            
+            position: relative;
+            top: 30px;
+            width: 1100px;
+            height: 500px;
+            .cal_box {
+                width: 410px;
+                height: 360px;
+                padding: 70px 70px 70px 70px;
+                .text_line {
+                    display: flex;
+                    justify-content: space-between;
+                    height: 50px;
+                }
+                .week_line {
+                    display: flex;
+                    flex-direction: row;
+                    justify-content: space-around;
+                    color: #999;
+                }
             }
         }
     }
     .hidden {
         display: none;
     }
-}
-@keyframes open_dropdown {
-    from {height: 0px;}
-    to {height: 500px;}
 }
