@@ -17,10 +17,10 @@
         justify-content: center;
         height: 100%;
         padding: 0px 30px 0px 30px;
+        cursor: pointer;
         &:not(.checked_item):not(:last-child):hover {
             border-radius: 50px;
             background-color: #ddd;
-            cursor: pointer;
         }
         .item_title {
             margin-bottom: 10px;
