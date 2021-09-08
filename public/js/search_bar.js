@@ -8,7 +8,6 @@ const dropdownOfItem = {
 }
 
 export function searchItemClickHandler(ev) {
-    onCheckedItem(ev);
     offAllCheckedItem();
     const targetItem = searchItems.reduce((pre, v) => {
         if(ev.currentTarget === searchBar.querySelector(`.${v}`)) {
@@ -16,6 +15,7 @@ export function searchItemClickHandler(ev) {
         }
         return pre;
     }, '');
+    onCheckedItem(ev);
     if(isOpenedDropdown(targetItem)) return;
     onDropdown(targetItem);
 }
@@ -23,9 +23,6 @@ function isOpenedDropdown(targetItem) {
     return !document.querySelector(`.search_dropdown.${dropdownOfItem[targetItem]}`).classList.contains('hidden');
 }
 function onCheckedItem(ev) {
-    searchBar.querySelectorAll('.search_bar_item').forEach(element => {
-        element.classList.remove('checked_item');
-    });
     ev.currentTarget.classList.add('checked_item');
 }
 function offAllCheckedItem() {
