@@ -8,19 +8,23 @@ const dropdownOfItem = {
 }
 
 export function searchItemClickHandler(ev) {
-    offAllCheckedItem();
     const targetItem = searchItems.reduce((pre, v) => {
         if(ev.currentTarget === searchBar.querySelector(`.${v}`)) {
             pre = v;
         }
         return pre;
     }, '');
+    if(isCheckedItem(targetItem)) {
+        offAllCheckedItem();
+        offAllDropdown();
+        return;
+    }
+    offAllCheckedItem();
     onCheckedItem(ev);
-    if(isOpenedDropdown(targetItem)) return;
     onDropdown(targetItem);
 }
-function isOpenedDropdown(targetItem) {
-    return !document.querySelector(`.search_dropdown.${dropdownOfItem[targetItem]}`).classList.contains('hidden');
+function isCheckedItem(targetItem) {
+    return document.querySelector(`.search_bar_item.${targetItem}`).classList.contains('checked_item');
 }
 function onCheckedItem(ev) {
     ev.currentTarget.classList.add('checked_item');
