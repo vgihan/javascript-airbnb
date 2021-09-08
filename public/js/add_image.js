@@ -5,10 +5,25 @@ import searchButton from '../img/search_button.png';
 import leftDate from '../img/left.png';
 import rightDate from '../img/right.png';
 
-export default function addImage() {
-    const imgs = [backgroundImage, mainLogo, loginMenu, searchButton, leftDate, rightDate];
-    const containerSelectors = ['.header_background', '.logo', '.login_btn', '.submit_btn', '.left_btn', '.right_btn'];
+export function addHeaderImage() {
+    const imgs = [backgroundImage, mainLogo, loginMenu];
+    const containerSelectors = ['.header_background', '.logo', '.login_btn'];
+    addImage(imgs, containerSelectors);
+}
 
+export function addSearchImage() {
+    const imgs = [searchButton];
+    const containerSelectors = ['.submit_btn'];
+    addImage(imgs, containerSelectors);
+}
+
+export function addCalendarImage() {
+    const imgs = [leftDate, rightDate];
+    const containerSelectors = ['.left_btn', '.right_btn'];
+    addImage(imgs, containerSelectors);
+}
+
+function addImage(imgs, containerSelectors) {
     imgs.forEach((v, i) => {
         const container = document.querySelector(containerSelectors[i]);
         const imgTag = document.createElement('img');

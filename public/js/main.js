@@ -1,6 +1,7 @@
 import Event from 'events';
-import addImage from "./add_image.js";
+import { addHeaderImage } from "./add_image.js";
 import { SearchView } from './search.js';
+import { DropdownView } from './dropdown.js';
 
 class MainView {
   constructor() {
@@ -15,8 +16,9 @@ class MainView {
       {className: 'number', title: '인원', placeholder: '게스트 추가'},
     ];
     this.searchView = new SearchView(items, this.event);
+    this.dropdownView = new DropdownView(this.event);
   }
 }
 
 const mainView = new MainView();
-addImage();
+addHeaderImage();
