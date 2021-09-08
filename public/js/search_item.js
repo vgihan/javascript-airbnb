@@ -10,6 +10,7 @@ export class SearchItemView {
         this.isChecked = UNCHECKED;
         this.render();
         this.element = document.querySelector(`.search_bar_item.${this.className}`);
+        this.registEventHandler();
     }
     render() {
         const html = `<div class="search_bar_item ${this.className}">
@@ -23,14 +24,18 @@ export class SearchItemView {
         document.querySelector('.search_bar').insertAdjacentHTML('beforeend', html);
     }
     registEventHandler() {
-        this.element.addEventListener('click', this.toggleCheckItem);
+        this.element.addEventListener('click', this.toggleCheckItem.bind(this));
         this.event.on('check_item', (value) => {
-            if(value.className === this.className) {
-                this.checkItem();
-            } else {
+            if(value.className !== this.className) {
                 this.uncheckItem();
             }
         });
+    }
+    toggleCheckItem() {
+        const checkFuns = [this.uncheckItem.bind(this), this.checkItem.bind(this)];
+        const eventNames = ['uncheck_item', 'check_item'];
+        this.event.emit(eventNames[this.isChecked], {className: this.className});
+        checkFuns[this.isChecked]();
     }
     checkItem() {
         this.isChecked = CHECKED;
@@ -39,12 +44,5 @@ export class SearchItemView {
     uncheckItem() {
         this.isChecked = UNCHECKED;
         this.element.classList.remove('checked_item');
-    }
-    toggleCheckItem() {
-        const checkFuns = [this.checkItem, this.uncheckItem];
-        const eventNames = ['check_item', 'uncheck_item'];
-
-        checkFuns[this.isChecked]();
-        this.event(eventNames[this.isChecked], {className: this.className});
     }
 }
