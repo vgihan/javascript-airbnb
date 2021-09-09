@@ -13,7 +13,8 @@ export class SearchView {
             pre += element.render();
             return pre;
         }, '');
-        const html = `<div class="search_bar">
+        const html = 
+        `<div class="search_bar">
             ${items}
             <div class="search_bar_item submit">
                 <div class="submit_btn"></div>
