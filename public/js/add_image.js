@@ -10,10 +10,10 @@ export function addImage() {
 }
 
 function appendImage(imgs, containerSelectors) {
-    imgs.forEach((v, i) => {
+    imgs.forEach((imgSrc, i) => {
         const container = document.querySelector(containerSelectors[i]);
         const imgTag = document.createElement('img');
-        imgTag.src = v;
+        imgTag.src = imgSrc;
         container.appendChild(imgTag);
     });
 }

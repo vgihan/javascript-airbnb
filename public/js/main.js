@@ -11,22 +11,7 @@ class MainView {
     this.registEventHandler();
   }
   render() {
-    const header = `<header>
-      <div class="header_background"></div>
-      <div class="logo"></div>
-      <div class="header_menu">
-        <div class="header_menu_item room">
-          <p>숙소</p>
-        </div>
-        <div class="header_menu_item experience">
-          <p>체험</p>
-        </div>
-        <div class="header_menu_item online">
-          <p>온라인 체험</p>
-        </div>
-      </div>
-      <div class="login_btn"></div>
-    </header>`;
+    const header = document.querySelector('#template_header').innerHTML;
     const search = this.searchView.render();
     const dropdown = this.dropdownView.render();
     document.querySelector('.content_wrap').innerHTML = header + search + dropdown.content;

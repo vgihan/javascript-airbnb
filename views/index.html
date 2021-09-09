@@ -10,4 +10,62 @@
       
     </div>
   </body>
+  <template id="template_header">
+    <header>
+      <div class="header_background"></div>
+      <div class="logo"></div>
+      <div class="header_menu">
+        <div class="header_menu_item room">
+          <p>숙소</p>
+        </div>
+        <div class="header_menu_item experience">
+          <p>체험</p>
+        </div>
+        <div class="header_menu_item online">
+          <p>온라인 체험</p>
+        </div>
+      </div>
+      <div class="login_btn"></div>
+    </header>
+  </template>
+  <template id="template_calendar">
+    <div class="dropdown_item calendar">
+      <div class="cal_box left">
+          <div class="text_line">
+              <div class="left_btn"><</div>
+              <div class="date_info">
+                <p>{{leftYear}}년 {{leftMonth}}월</p>
+              </div>
+          </div>
+          <ul class="week_line">
+              <li>일</li>
+              <li>월</li>
+              <li>화</li>
+              <li>수</li>
+              <li>목</li>
+              <li>금</li>
+              <li>토</li>
+          </ul>
+          <div class="cal_date">{{leftDateListTag}}</div>
+      </div>
+      <div class="cal_box right">
+          <div class="text_line">
+              <div class="date_info">
+                <p>{{rightYear}}년 {{rightMonth}}월</p>
+              </div>
+              <div class="right_btn">></div>
+          </div>
+          <ul class="week_line">
+              <li>일</li>
+              <li>월</li>
+              <li>화</li>
+              <li>수</li>
+              <li>목</li>
+              <li>금</li>
+              <li>토</li>
+          </ul>
+          <div class="cal_date">{{rightDateListTag}}</div>
+      </div>
+  </div>
+  </template>
 </html>

@@ -1,15 +1,15 @@
 import { SearchItemView } from './search_item.js';
 
 export class SearchView {
-    constructor(items, event) {
+    constructor(viewInfos, event) {
         this.event = event;
-        this.items = items.reduce((pre, v) => {
-            pre.push(new SearchItemView(v.className, v.title, v.placeholder, event));
+        this.viewInfos = viewInfos.reduce((pre, viewInfo) => {
+            pre.push(new SearchItemView(viewInfo.className, viewInfo.title, viewInfo.placeholder, event));
             return pre;
         }, []);
     }
     render() {
-        const items = this.items.reduce((pre, element) => {
+        const items = this.viewInfos.reduce((pre, element) => {
             pre += element.render();
             return pre;
         }, '');
