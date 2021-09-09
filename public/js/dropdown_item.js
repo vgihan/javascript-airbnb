@@ -21,52 +21,30 @@ export class DropdownCalendarView {
         const leftDateListTag = this.createDateListTag(leftDateArr, this.leftDate);
         const rightDateArr = this.createDateArr(this.rightDate);
         const rightDateListTag = this.createDateListTag(rightDateArr, this.rightDate);
-        const html = 
-        `<div class="dropdown_item calendar">
-            <div class="cal_box left">
-                <div class="text_line">
-                    <div class="left_btn"><</div>
-                    <div class="date_info">
-                        <p>${this.leftDate.getFullYear()}년 ${this.leftDate.getMonth()+1}월</p>
-                    </div>
-                </div>
-                <ul class="week_line">
-                    <li>일</li>
-                    <li>월</li>
-                    <li>화</li>
-                    <li>수</li>
-                    <li>목</li>
-                    <li>금</li>
-                    <li>토</li>
-                </ul>
-                <div class="cal_date">${leftDateListTag}</div>
-            </div>
-            <div class="cal_box right">
-                <div class="text_line">
-                    <div class="date_info">
-                        <p>${this.rightDate.getFullYear()}년 ${this.rightDate.getMonth()+1}월</p>
-                    </div>
-                    <div class="right_btn">></div>
-                </div>
-                <ul class="week_line">
-                    <li>일</li>
-                    <li>월</li>
-                    <li>화</li>
-                    <li>수</li>
-                    <li>목</li>
-                    <li>금</li>
-                    <li>토</li>
-                </ul>
-                <div class="cal_date">${rightDateListTag}</div>
-            </div>
-        </div>`;
-        return html;
+        const templateVariable = {
+            leftYear: this.leftDate.getFullYear(),
+            leftMonth: this.leftDate.getMonth()+1,
+            rightYear: this.rightDate.getFullYear(),
+            rightMonth: this.rightDate.getMonth()+1,
+            leftDateListTag: leftDateListTag,
+            rightDateListTag: rightDateListTag,
+        }
+        const template = document.querySelector('#template_calendar').innerHTML;
+
+        return Object.keys(templateVariable).reduce((pre, varsKey) => {
+            pre = this.insertTemplateHtml(pre, varsKey, templateVariable[varsKey]);
+            return pre;
+        }, template);
+    }
+    insertTemplateHtml(template, varName, value) {
+        return template.replace(`{{${varName}}}`, value);
     }
     createDateArr(date) {
+        console.log(new Date(date.getFullYear(), date.getMonth()+1, 0))
         const firstDay = this.transferDate(date, 1).getDay();
-        const numOfDate = this.transferDate(date, 0).getDate();
+        const numOfDate = new Date(date.getFullYear(), date.getMonth()+1, 0).getDate();
         const numOfWeek = parseInt((this.transferDate(date, 1).getDay() + numOfDate)/7 + 1);
-        const initArray = Array.from({length: numOfWeek}).reduce((pre, v) => {
+        const initArray = Array.from({length: numOfWeek}).reduce((pre) => {
             pre.push([]);
             return pre;
         }, []);
@@ -77,20 +55,23 @@ export class DropdownCalendarView {
         }, initArray);
     }
     createDateListTag(dateArr, date) {
-        return dateArr.reduce((week, outer) => {
-            week += `<ul>`;
-            week += outer.reduce((day, inner) => {
-                if(inner !== 0) {
-                    day += createLiTag.bind(this)(this.checkin, this.checkout, this.transferDate(date, inner));
-                    day += (inner > 0 ? inner : '') + '</li>';
-                } else {
-                    day += `<li class="empty"></li>`;
-                }
-                return day;
-            }, '');
-            week += `</ul>`;
-            return week;
+        return dateArr.reduce((pre, week) => {
+            pre += `<ul>`;
+            pre += createInnerTag.bind(this)(week, date);
+            pre += `</ul>`;
+            return pre;
         }, '');
+        function createInnerTag(week, date) {
+            return week.reduce((pre, day) => {
+                if(day !== 0) {
+                    pre += createLiTag.bind(this)(this.checkin, this.checkout, this.transferDate(date, day));
+                    pre += (day > 0 ? day : '') + '</li>';
+                } else {
+                    pre += `<li class="empty"></li>`;
+                }
+                return pre;
+            }, '');
+        }
         function createLiTag(checkin, checkout, date) {
             const classes = [this.toDateFormatString(date)];
             if(this.isEqualDate(checkin, date) || this.isEqualDate(checkout, date)) {
