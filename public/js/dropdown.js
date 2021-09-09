@@ -3,15 +3,38 @@ import { DropdownCalendarView, DropdownNumberView, DropdownPriceView } from "./d
 export class DropdownView {
     constructor(event) {
         this.event = event;
-        this.render();
+        this.openedDropdown = '';
         this.items = {
             calendar: new DropdownCalendarView(event),
             price: new DropdownPriceView(event),
             number: new DropdownNumberView(event),
         }
+        this.registEventHandler();
+    }
+    setState(newState) {
+        if(newState.openedDropdown === this.openedDropdown) return;
+        if(newState.openedDropdown !== undefined) this.openedDropdown = newState.openedDropdown;
+        this.event.emit('re_render');
+    }
+    registEventHandler() {
+        this.event.on('check_item', this.openDropdown.bind(this));
+        this.event.on('uncheck_item', this.closeDropdown.bind(this));
     }
     render() {
-        const html = `<div class="search_dropdown"></div>`;
-        document.querySelector('.content_wrap').insertAdjacentHTML('beforeend', html);
+        const item = this.openedDropdown === '' ? '' : this.items[this.openedDropdown].render();
+        const html = `<div class="search_dropdown">${item}</div>`;
+        return html;
+    }
+    openDropdown(value) {
+        const matchObj = {
+            checkin: 'calendar',
+            checkout: 'calendar',
+            price: 'price',
+            number: 'number',
+        }
+        this.setState({openedDropdown: matchObj[value.className]});
+    }
+    closeDropdown() {
+        this.setState({openedDropdown: ''});
     }
 }
