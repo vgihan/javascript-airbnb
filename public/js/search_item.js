@@ -4,16 +4,25 @@ const UNCHECKED = 1;
 export class SearchItemView {
     constructor(className, title, placeholder, event) {
         this.event = event;
-        this.className = className
+        this.className = className;
         this.title = title;
         this.placeholder = placeholder;
         this.isChecked = UNCHECKED;
-        this.render();
-        this.element = document.querySelector(`.search_bar_item.${this.className}`);
-        this.registEventHandler();
+        this.event.on('regist_handler', this.registEventHandler.bind(this));
+        this.event.on('check_item', (value) => {
+            if(value.className !== this.className && this.isChecked === CHECKED) {
+                this.setState({isChecked: UNCHECKED});
+            }
+        });
+    }
+    setState(newState) {
+        if(newState.isChecked !== undefined) this.isChecked = newState.isChecked;
+        
+        this.event.emit('re_render');
     }
     render() {
-        const html = `<div class="search_bar_item ${this.className}">
+        const checkClass = this.isChecked === CHECKED ? 'checked_item' : '';
+        return `<div class="search_bar_item ${this.className} ${checkClass}">
             <div class="item_title">
                 <p>${this.title}</p></div>
                 <div class="item_content">
@@ -21,28 +30,13 @@ export class SearchItemView {
                 <input type="text" class="wrap" value="${this.placeholder}" readonly>
             </div>
         </div>`;
-        document.querySelector('.search_bar').insertAdjacentHTML('beforeend', html);
     }
     registEventHandler() {
-        this.element.addEventListener('click', this.toggleCheckItem.bind(this));
-        this.event.on('check_item', (value) => {
-            if(value.className !== this.className) {
-                this.uncheckItem();
-            }
-        });
+        document.querySelector(`.search_bar_item.${this.className}`).addEventListener('click', this.toggleCheckItem.bind(this));
     }
     toggleCheckItem() {
-        const checkFuns = [this.uncheckItem.bind(this), this.checkItem.bind(this)];
         const eventNames = ['uncheck_item', 'check_item'];
         this.event.emit(eventNames[this.isChecked], {className: this.className});
-        checkFuns[this.isChecked]();
-    }
-    checkItem() {
-        this.isChecked = CHECKED;
-        this.element.classList.add('checked_item');
-    }
-    uncheckItem() {
-        this.isChecked = UNCHECKED;
-        this.element.classList.remove('checked_item');
+        this.setState({isChecked: (this.isChecked+1)%2});
     }
 }
