@@ -17,7 +17,6 @@ export class SearchItemView {
     }
     setState(newState) {
         if(newState.isChecked !== undefined) this.isChecked = newState.isChecked;
-        
         this.event.emit('re_render');
     }
     render() {
