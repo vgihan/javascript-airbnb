@@ -3,20 +3,24 @@ export class DropdownCalendarView {
         this.event = event;
         this.leftDate = new Date();
         this.rightDate = new Date(this.leftDate.getFullYear(), this.leftDate.getMonth()+1);
-        this.leftFocus = null;
-        this.rightFocus = null;
+        this.checkin = null;
+        this.checkout = null;
+        this.selectType = null;
         this.event.on('calendar_regist_handler', this.registEventHandler.bind(this));
     }
     setState(newState) {
-        if(newState.leftDate) this.leftDate = newState.leftDate;
-        if(newState.rightDate) this.rightDate = newState.rightDate;
+        if(newState.leftDate !== undefined) this.leftDate = newState.leftDate;
+        if(newState.rightDate !== undefined) this.rightDate = newState.rightDate;
+        if(newState.checkin !== undefined) this.checkin = newState.checkin;
+        if(newState.checkout !== undefined) this.checkout = newState.checkout;
+        if(newState.type !== undefined) this.selectType = newState.type;
         this.event.emit('re_render');
     }
     render() {
         const leftDateArr = this.createDateArr(this.leftDate);
         const leftDateListTag = this.createDateListTag(leftDateArr, this.leftDate);
         const rightDateArr = this.createDateArr(this.rightDate);
-        const rightDateListTag = this.createDateListTag(rightDateArr, this.leftDate);
+        const rightDateListTag = this.createDateListTag(rightDateArr, this.rightDate);
         const html = 
         `<div class="dropdown_item calendar">
             <div class="cal_box left">
@@ -60,7 +64,7 @@ export class DropdownCalendarView {
     }
     createDateArr(date) {
         const firstDay = this.transferDate(date, 1).getDay();
-        const numOfDate = this.transferDate(date, 0, {month: 1}).getDate();
+        const numOfDate = this.transferDate(date, 0).getDate();
         const numOfWeek = parseInt((this.transferDate(date, 1).getDay() + numOfDate)/7 + 1);
         const initArray = Array.from({length: numOfWeek}).reduce((pre, v) => {
             pre.push([]);
@@ -77,41 +81,59 @@ export class DropdownCalendarView {
             week += `<ul>`;
             week += outer.reduce((day, inner) => {
                 if(inner !== 0) {
-                    day += createLiTag.bind(this)(this.leftFocus, this.rightFocus, this.transferDate(date, inner, {month: 1}));
+                    day += createLiTag.bind(this)(this.checkin, this.checkout, this.transferDate(date, inner));
                     day += (inner > 0 ? inner : '') + '</li>';
                 } else {
-                    day += `<li></li>`;
+                    day += `<li class="empty"></li>`;
                 }
                 return day;
             }, '');
             week += `</ul>`;
             return week;
         }, '');
-        function createLiTag(leftFocus, rightFocus, date) {
-            if(leftFocus === date || rightFocus === date) {
-                return `<li class="${this.toDateFormatString(date)} focus">`;
-            } else if(leftFocus < date && date < rightFocus) {
-                return `<li class="${this.toDateFormatString(date)} inner">`;
-            } else {
-                return `<li class="${this.toDateFormatString(date)}">`;
+        function createLiTag(checkin, checkout, date) {
+            const classes = [this.toDateFormatString(date)];
+            if(this.isEqualDate(checkin, date) || this.isEqualDate(checkout, date)) {
+                classes.push('focus');
+            } else if(checkin < date && date < checkout) {
+                classes.push('inner');
             }
+            if(date < new Date()) {
+                classes.push('inactive');
+            }
+            return `<li class="${classes.join(' ')}">`;
         }
     }
-    transferDate(dateObj, date, option = {month:0}) {
-        return new Date(dateObj.getFullYear(), dateObj.getMonth()+option['month'], date);
+    isEqualDate(dateA, dateB) {
+        if(!dateA) return false;
+        if(!dateB) return false;
+        return this.toDateFormatString(dateA) === this.toDateFormatString(dateB);
+    }
+    transferDate(dateObj, date) {
+        return new Date(dateObj.getFullYear(), dateObj.getMonth(), date);
     }
     toDateFormatString(date) {
-        return `${date.getFullYear()}-${date.getMonth().toString().padStart(2, '0')}-${date.getDate().toString().padStart(2, '0')}`;
+        return `${date.getFullYear()}-${(date.getMonth()+1).toString().padStart(2, '0')}-${date.getDate().toString().padStart(2, '0')}`;
     }
     registEventHandler() {
         document.querySelector('.text_line > .right_btn').addEventListener('click', () => this.slideCalendar.bind(this)(1));
         document.querySelector('.text_line > .left_btn').addEventListener('click', () => this.slideCalendar.bind(this)(-1));
+        document.querySelectorAll('.cal_date > ul > li:not(.empty):not(.inactive)').forEach(element => {
+            element.addEventListener('click', this.focusingDate.bind(this));
+        });
     }
     slideCalendar(direction) {
         this.setState({
             leftDate: new Date(this.leftDate.getFullYear(), this.leftDate.getMonth()+direction),
             rightDate: new Date(this.rightDate.getFullYear(), this.rightDate.getMonth()+direction)
         });
+    }
+    focusingDate(ev) {
+        if(this.selectType === 'checkin') {
+            this.setState({checkin: new Date(ev.currentTarget.classList[0])});
+        } else {
+            this.setState({checkout: new Date(ev.currentTarget.classList[0])});
+        }
     }
 }
 

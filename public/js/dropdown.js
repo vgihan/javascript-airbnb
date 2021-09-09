@@ -32,6 +32,9 @@ export class DropdownView {
             price: 'price',
             number: 'number',
         }
+        if(matchObj[value.className] === 'calendar') {
+            this.items.calendar.setState({type: value.className});
+        }
         this.setState({openedDropdown: matchObj[value.className]});
         this.event.emit(`${matchObj[value.className]}_regist_handler`);
     }
