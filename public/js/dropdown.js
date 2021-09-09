@@ -23,7 +23,7 @@ export class DropdownView {
     render() {
         const item = this.openedDropdown === '' ? '' : this.items[this.openedDropdown].render();
         const html = `<div class="search_dropdown">${item}</div>`;
-        return html;
+        return {content: html, option: this.openedDropdown};
     }
     openDropdown(value) {
         const matchObj = {
@@ -33,6 +33,7 @@ export class DropdownView {
             number: 'number',
         }
         this.setState({openedDropdown: matchObj[value.className]});
+        this.event.emit(`${matchObj[value.className]}_regist_handler`);
     }
     closeDropdown() {
         this.setState({openedDropdown: ''});
