@@ -103,6 +103,11 @@
                 }
             }
             .cal_box.left {
+                .left_btn {
+                    position: relative;
+                    top: -3px;
+                    font-size: 25px;
+                }
                 .text_line {
                     .date_info {
                         margin-right: 150px;
@@ -110,6 +115,11 @@
                 }
             }
             .cal_box.right {
+                .right_btn {
+                    position: relative;
+                    top: -3px;
+                    font-size: 25px;
+                }
                 .text_line {
                     .date_info {
                         margin-left: 150px;
