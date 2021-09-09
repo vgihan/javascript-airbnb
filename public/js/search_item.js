@@ -21,14 +21,19 @@ export class SearchItemView {
     }
     render() {
         const checkClass = this.isChecked === CHECKED ? 'checked_item' : '';
-        return `<div class="search_bar_item ${this.className} ${checkClass}">
-            <div class="item_title">
-                <p>${this.title}</p></div>
-                <div class="item_content">
-                <input type="text" class="value" required>
-                <input type="text" class="wrap" value="${this.placeholder}" readonly>
-            </div>
-        </div>`;
+        const templateVariable = {
+            className: this.className,
+            checkClass: checkClass,
+            title: this.title,
+            placeholder: this.placeholder,
+        }
+        return Object.keys(templateVariable).reduce((pre, varKeys) => {
+            pre = this.insertTemplateHtml(pre, varKeys, templateVariable[varKeys]);
+            return pre;
+        }, document.querySelector('#template_search_item').innerHTML);
+    }
+    insertTemplateHtml(template, varName, value) {
+        return template.replace(`{{${varName}}}`, value);
     }
     registEventHandler() {
         document.querySelector(`.search_bar_item.${this.className}`).addEventListener('click', this.toggleCheckItem.bind(this));
