@@ -14,12 +14,13 @@ export class DropdownCalendarView {
         this.event.on('uncheck_item', this.closeDropdownCalendar.bind(this));
     }
     render() {
+        
         const html = `<div class="dropdown_item calendar">
             <div class="cal_box left">
             <div class="text_line">
                 <div class="left_btn"></div>
                 <div class="date_info">
-                    <p></p>
+                    <p>${this.leftDate.getFullYear()}년 ${this.leftDate.getMonth()}월 ${this.leftDate.getDate()}일</p>
                 </div>
             </div>
             <ul class="week_line">
@@ -36,7 +37,7 @@ export class DropdownCalendarView {
             <div class="cal_box right">
             <div class="text_line">
                 <div class="date_info">
-                    <p></p>
+                    <p>${this.rightDate.getFullYear()}년 ${this.rightDate.getMonth()}월 ${this.rightDate.getDate()}일</p>
                 </div>
                 <div class="right_btn"></div>
             </div>
@@ -54,6 +55,9 @@ export class DropdownCalendarView {
         </div>`;
         this.parent.innerHTML = html;
         addCalendarImage();
+    }
+    createDateBox() {
+
     }
     openDropdownCalendar(value) {
         if(value.className !== 'checkin' && value.className !== 'checkout') return;
