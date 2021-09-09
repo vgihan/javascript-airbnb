@@ -29,9 +29,10 @@ class MainView {
     </header>`;
     const search = this.searchView.render();
     const dropdown = this.dropdownView.render();
-    document.querySelector('.content_wrap').innerHTML = header + search + dropdown;
-    addImage();
+    document.querySelector('.content_wrap').innerHTML = header + search + dropdown.content;
     this.event.emit('regist_handler');
+    if(dropdown.option !== '') this.event.emit(`${dropdown.option}_regist_handler`);
+    addImage();
   }
   registEventHandler() {
     this.event.on('re_render', this.render.bind(this));

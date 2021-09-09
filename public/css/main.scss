@@ -81,11 +81,11 @@
             position: relative;
             top: 30px;
             width: 1100px;
-            height: 500px;
+            height: 600px;
             .cal_box {
                 width: 410px;
                 height: 360px;
-                padding: 70px 70px 70px 70px;
+                padding: 10px 70px 70px 70px;
                 .text_line {
                     display: flex;
                     justify-content: space-between;
@@ -101,16 +101,37 @@
                     justify-content: space-around;
                     color: #999;
                 }
+                .cal_date {
+                    display: flex;
+                    flex-direction: column;
+                    ul {
+                        display: flex;
+                        flex-direction: row;
+                        li {
+                            &:hover {
+                                background-color: #999;
+                                border-radius: 50px;
+                            }
+                            display: flex;
+                            justify-content: center;
+                            align-items: center;
+                            width: 70px;
+                            height: 60px;
+                            cursor: pointer;
+                        }
+                    }
+                }
             }
             .cal_box.left {
                 .left_btn {
                     position: relative;
                     top: -3px;
                     font-size: 25px;
+                    cursor: pointer;
                 }
                 .text_line {
                     .date_info {
-                        margin-right: 150px;
+                        margin-right: 162px;
                     }
                 }
             }
@@ -119,10 +140,11 @@
                     position: relative;
                     top: -3px;
                     font-size: 25px;
+                    cursor: pointer;
                 }
                 .text_line {
                     .date_info {
-                        margin-left: 150px;
+                        margin-left: 162px;
                     }
                 }
             }

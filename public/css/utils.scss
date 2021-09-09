@@ -45,6 +45,11 @@
 .hidden {
     display: none;
 }
+.focus {
+    border-radius: 50px;
+    background-color: black;
+    color: white;
+}
 input[type=text] {
     background: transparent;
     border: none;
