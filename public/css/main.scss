@@ -90,12 +90,30 @@
                     display: flex;
                     justify-content: space-between;
                     height: 50px;
+                    .date_info {
+                        margin-top: 3px;
+                        font-weight: bold;
+                    }
                 }
                 .week_line {
                     display: flex;
                     flex-direction: row;
                     justify-content: space-around;
                     color: #999;
+                }
+            }
+            .cal_box.left {
+                .text_line {
+                    .date_info {
+                        margin-right: 150px;
+                    }
+                }
+            }
+            .cal_box.right {
+                .text_line {
+                    .date_info {
+                        margin-left: 150px;
+                    }
                 }
             }
         }
