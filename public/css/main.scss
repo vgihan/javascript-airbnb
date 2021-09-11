@@ -1,12 +1,12 @@
-@import url('./utils.scss');
-@import url('./reset.scss');
-@import url('./font.scss');
+@import url("./utils.scss");
+@import url("./reset.scss");
+@import url("./font.scss");
 
 .content_wrap {
     display: flex;
     flex-direction: column;
     align-items: center;
-    font-family: 'Noto Sans KR';
+    font-family: "Noto Sans KR";
     header {
         display: flex;
         flex-direction: row;
@@ -63,7 +63,7 @@
             width: 50px;
             height: 50px;
             border-radius: 50px;
-            background-color:#E84C60;
+            background-color: #e84c60;
             cursor: pointer;
             img {
                 width: 30px;
@@ -77,7 +77,7 @@
             flex-direction: row;
             align-items: center;
             justify-content: center;
-            
+
             position: relative;
             top: 30px;
             width: 1100px;
