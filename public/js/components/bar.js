@@ -2,7 +2,6 @@ import { Component } from "../core/component.js";
 
 export class Bar extends Component {
     setup() {
-        this.$target = document.querySelector("search_box");
         this.$state = {
             checkin: {
                 check: "",
@@ -46,9 +45,7 @@ export class Bar extends Component {
         </div>`;
     }
     setEvent() {
-        document
-            .querySelector("search_bar")
-            .addEventListener("click", this.changeCheckState);
+        this.addEvent("click", ".search_bar", this.changeCheckState);
     }
     changeCheckState(ev) {
         const items = ["checkin", "checkout", "price", "number"];
