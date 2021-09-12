@@ -11,7 +11,11 @@ export class Calendar extends Component {
                 this.leftDate.getMonth() + 1
             ),
             selectType: null,
+            selectedDropdown: false,
         };
+    }
+    render() {
+        this.$target.insertAdjacentHTML("afterbegin", this.template());
     }
     setEvent() {
         this.addEvent("click", ".cal_date > ul", (ev) => {
@@ -30,7 +34,9 @@ export class Calendar extends Component {
         });
     }
     template() {
-        const { checkin, checkout, leftDate, rightDate } = this.$state;
+        const { checkin, checkout, leftDate, rightDate, selectedDropdown } =
+            this.$state;
+        if (!selectedDropdown) return "";
         const leftDateArr = this.createDateArr(leftDate);
         const leftDateListTag = this.createDateListTag(
             leftDateArr,
