@@ -1,7 +1,6 @@
-export class Number {
-    constructor(event) {
-        this.event = event;
-    }
+import { Component } from "../core/component";
+
+export class Number extends Component {
     render() {
         return ``;
     }

@@ -2,7 +2,7 @@
 @import url("./reset.scss");
 @import url("./font.scss");
 
-.content_wrap {
+.main_box {
     display: flex;
     flex-direction: column;
     align-items: center;
@@ -72,6 +72,15 @@
         }
     }
     .search_dropdown {
+        .dropdown_item.calendar.hidden {
+            display: none;
+        }
+        .dropdown_item.price.hidden {
+            display: none;
+        }
+        .dropdown_item.number.hidden {
+            display: none;
+        }
         .dropdown_item.calendar {
             display: flex;
             flex-direction: row;
@@ -149,8 +158,5 @@
                 }
             }
         }
-    }
-    .hidden {
-        display: none;
     }
 }

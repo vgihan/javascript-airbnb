@@ -1,7 +1,6 @@
-export class Price {
-    constructor(event) {
-        this.event = event;
-    }
+import { Component } from "../core/component";
+
+export class Price extends Component {
     render() {
         return ``;
     }

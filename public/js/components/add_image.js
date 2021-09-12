@@ -1,7 +1,7 @@
-import backgroundImage from "../img/main_background.png";
-import mainLogo from "../img/logo.png";
-import loginMenu from "../img/login_menu.png";
-import searchButton from "../img/search_button.png";
+import backgroundImage from "../../img/main_background.png";
+import mainLogo from "../../img/logo.png";
+import loginMenu from "../../img/login_menu.png";
+import searchButton from "../../img/search_button.png";
 
 export function addImage() {
     const imgs = [backgroundImage, mainLogo, loginMenu, searchButton];

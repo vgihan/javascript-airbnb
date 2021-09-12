@@ -2,20 +2,7 @@ import { Component } from "../core/component";
 
 export class Calendar extends Component {
     setup() {
-        this.$state = {
-            checkin: null,
-            checkout: null,
-            leftDate: new Date(),
-            rightDate: new Date(
-                this.leftDate.getFullYear(),
-                this.leftDate.getMonth() + 1
-            ),
-            selectType: null,
-            selectedDropdown: false,
-        };
-    }
-    render() {
-        this.$target.insertAdjacentHTML("afterbegin", this.template());
+        console.log(this.$target);
     }
     setEvent() {
         this.addEvent("click", ".cal_date > ul", (ev) => {
@@ -35,8 +22,7 @@ export class Calendar extends Component {
     }
     template() {
         const { checkin, checkout, leftDate, rightDate, selectedDropdown } =
-            this.$state;
-        if (!selectedDropdown) return "";
+            this.$props;
         const leftDateArr = this.createDateArr(leftDate);
         const leftDateListTag = this.createDateListTag(
             leftDateArr,
