@@ -32,25 +32,26 @@ export class Bar extends Component {
         const items = Object.keys(this.$state).reduce((pre, className) => {
             pre += searchItemTemplate
                 .replace("{{className}}", className)
-                .replace("{{checkClass}}", info[className].check)
-                .replace("{{title}}", info[className].title)
-                .replace("{{placeholder}}", info[className].placeholder);
+                .replace("{{checkClass}}", this.$state[className].check)
+                .replace("{{title}}", this.$state[className].title)
+                .replace("{{placeholder}}", this.$state[className].placeholder);
             return pre;
         }, "");
-        return `<div class="search_bar">
-            ${items}
-            <div class="search_bar_item submit">
-                <div class="submit_btn"></div>
-            </div>
+        return `${items}
+        <div class="search_bar_item submit">
+            <div class="submit_btn"></div>
         </div>`;
     }
     setEvent() {
-        this.addEvent("click", ".search_bar", this.changeCheckState);
+        this.addEvent("click", ".search_bar", (ev) => {
+            this.changeCheckState.bind(this)(ev);
+        });
     }
     changeCheckState(ev) {
+        const target = ev.target.closest(".search_bar_item");
         const items = ["checkin", "checkout", "price", "number"];
         items.forEach((item) => {
-            const isBarItem = ev.target.classList.contains(item);
+            const isBarItem = target.classList.contains(item);
             const isChecked = this.$state[item].check === "checked_item";
             if (isBarItem && !isChecked) {
                 this.setState(this.toggleCheck(this.$state, item));

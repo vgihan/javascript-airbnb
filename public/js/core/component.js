@@ -20,12 +20,16 @@ export class Component {
     }
     setEvent() {}
     setState(newState) {
-        this.$state = newState;
+        this.$state = { ...this.$state, ...newState };
         this.render();
     }
     addEvent(eventName, selector, callback) {
-        this.$target
-            .querySelector(selector)
-            .addEventListener(eventName, callback);
+        const children = [...this.$target.querySelectorAll(selector)];
+        const isTarget = (target) =>
+            children.includes(target) || target.closest(selector);
+        this.$target.addEventListener(eventName, (ev) => {
+            if (!isTarget(ev.target)) return;
+            callback(ev);
+        });
     }
 }
