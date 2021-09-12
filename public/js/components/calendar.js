@@ -1,4 +1,4 @@
-export class DropdownCalendarView {
+export class CalendarView {
     constructor(event) {
         this.event = event;
         this.leftDate = new Date();

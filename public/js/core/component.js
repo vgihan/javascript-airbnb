@@ -7,6 +7,16 @@ export class Component {
         this.render();
     }
     setup() {}
-    template() { return ''; }
-    render()
+    template() {
+        return "";
+    }
+    render() {
+        this.$target.innerHTML = this.template();
+        this.setEvent();
+    }
+    setEvent() {}
+    setState(newState) {
+        this.$state = { ...this.$state, ...newState };
+        this.render();
+    }
 }

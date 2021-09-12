@@ -1,11 +1,10 @@
-import Event from "events";
 import { addImage } from "./add_image.js";
 import { SearchView } from "./search.js";
 import { DropdownView } from "./dropdown.js";
+import { Component } from "../core/component.js";
 
-class MainView {
+class Main extends Component {
     constructor() {
-        this.event = new Event();
         this.createView();
         this.render();
         this.registEventHandler();
@@ -20,9 +19,6 @@ class MainView {
         if (dropdown.option !== "")
             this.event.emit(`${dropdown.option}_regist_handler`);
         addImage();
-    }
-    registEventHandler() {
-        this.event.on("re_render", this.render.bind(this));
     }
     createView() {
         const items = [
