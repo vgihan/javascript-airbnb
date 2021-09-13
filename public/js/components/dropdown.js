@@ -20,19 +20,16 @@ export class Dropdown extends Component {
         const $dropdownNumber = document.querySelector(".dropdown_item.number");
 
         const {
-            openedDropdown,
             checkin,
             checkout,
             leftDate,
             rightDate,
             selectType,
-            numOfAdult,
-            numOfChild,
-            numOfBaby,
+            number,
+            price,
         } = this.$props;
 
         new Calendar($dropdownCal, {
-            openedDropdown,
             checkin,
             checkout,
             leftDate,
@@ -41,12 +38,11 @@ export class Dropdown extends Component {
             setSearchInput: this.$props.setSearchInput,
         });
         new Price($dropdownPrice, {
+            price,
             setSearchInput: this.$props.setSearchInput,
         });
         new Number($dropdownNumber, {
-            numOfAdult,
-            numOfChild,
-            numOfBaby,
+            number,
             setSearchInput: this.$props.setSearchInput,
         });
     }

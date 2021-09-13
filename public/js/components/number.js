@@ -2,15 +2,19 @@ import { Component } from "../core/component";
 
 export class Number extends Component {
     template() {
-        const { numOfAdult, numOfChild, numOfBaby } = this.$props;
+        const { number } = this.$props;
         const template = document.querySelector("#template_number").innerHTML;
         const templateVariable = {
-            numOfAdult: numOfAdult,
-            numOfChild: numOfChild,
-            numOfBaby: numOfBaby,
+            numOfAdult: number?.numOfAdult,
+            numOfChild: number?.numOfChild,
+            numOfBaby: number?.numOfBaby,
         };
         return Object.keys(templateVariable).reduce((pre, type) => {
-            pre = pre.replace(`{{${type}}}`, templateVariable[type]);
+            const value =
+                templateVariable[type] === undefined
+                    ? 0
+                    : templateVariable[type];
+            pre = pre.replace(`{{${type}}}`, value);
             return pre;
         }, template);
     }
