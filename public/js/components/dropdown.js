@@ -35,8 +35,13 @@ export class Dropdown extends Component {
             leftDate,
             rightDate,
             selectType,
+            setSearchInput: this.$props.setSearchInput,
         });
-        new Price($dropdownPrice, {});
-        new Number($dropdownNumber, {});
+        new Price($dropdownPrice, {
+            setSearchInput: this.$props.setSearchInput,
+        });
+        new Number($dropdownNumber, {
+            setSearchInput: this.$props.setSearchInput,
+        });
     }
 }
