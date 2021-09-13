@@ -7,6 +7,7 @@
     </head>
     <body>
         <div class="content_wrap"></div>
+
         <div id="templates">
             <template id="template_header">
                 <div class="header_background"></div>
@@ -76,6 +77,49 @@
                         <li>토</li>
                     </ul>
                     <div class="cal_date">{{rightDateListTag}}</div>
+                </div>
+            </template>
+            <template id="template_number">
+                <div class="number_box">
+                    <div class="input_box adult">
+                        <div class="description_box">
+                            <p class="person_type">성인</p>
+                            <p class="person_description">만 13세 이상</p>
+                        </div>
+                        <div class="person_input_box">
+                            <div class="minus_person">-</div>
+                            <div class="number_person">
+                                <input type="text" value="{{numOfAdult}}" />
+                            </div>
+                            <div class="plus_person">+</div>
+                        </div>
+                    </div>
+                    <div class="input_box child">
+                        <div class="description_box">
+                            <p class="person_type">어린이</p>
+                            <p class="person_description">만 2~12세</p>
+                        </div>
+                        <div class="person_input_box">
+                            <div class="minus_person">-</div>
+                            <div class="number_person">
+                                <input type="text" value="{{numOfChild}}" />
+                            </div>
+                            <div class="plus_person">+</div>
+                        </div>
+                    </div>
+                    <div class="input_box baby">
+                        <div class="description_box">
+                            <p class="person_type">유아</p>
+                            <p class="person_description">만 2세 미만</p>
+                        </div>
+                        <div class="person_input_box">
+                            <div class="minus_person">-</div>
+                            <div class="number_person">
+                                <input type="text" value="{{numOfBaby}}" />
+                            </div>
+                            <div class="plus_person">+</div>
+                        </div>
+                    </div>
                 </div>
             </template>
         </div>

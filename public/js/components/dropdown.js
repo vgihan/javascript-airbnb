@@ -26,6 +26,9 @@ export class Dropdown extends Component {
             leftDate,
             rightDate,
             selectType,
+            numOfAdult,
+            numOfChild,
+            numOfBaby,
         } = this.$props;
 
         new Calendar($dropdownCal, {
@@ -41,6 +44,9 @@ export class Dropdown extends Component {
             setSearchInput: this.$props.setSearchInput,
         });
         new Number($dropdownNumber, {
+            numOfAdult,
+            numOfChild,
+            numOfBaby,
             setSearchInput: this.$props.setSearchInput,
         });
     }
