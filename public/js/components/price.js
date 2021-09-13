@@ -12,9 +12,7 @@ export class Price extends Component {
         </div>`;
     }
     setEvent() {
-        this.$target
-            .querySelector("#regist_price")
-            .addEventListener("click", this.registPrice.bind(this));
+        this.addEvent("click", "#regist_price", this.registPrice.bind(this));
     }
     registPrice() {
         const { setSearchInput } = this.$props;
