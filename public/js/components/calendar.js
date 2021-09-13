@@ -1,11 +1,9 @@
 import { Component } from "../core/component";
 
 export class Calendar extends Component {
-    setup() {
-        console.log(this.$target);
-    }
     setEvent() {
-        this.addEvent("click", ".cal_date > ul", (ev) => {
+        this.addEvent("click", ".dropdown_item.calendar", (ev) => {
+            console.log(ev.target);
             if (ev.target.classList.contains("left_btn")) {
                 this.slideCalendar.bind(this)(-1);
                 return;
@@ -21,22 +19,25 @@ export class Calendar extends Component {
         });
     }
     template() {
-        const { checkin, checkout, leftDate, rightDate, selectedDropdown } =
-            this.$props;
-        const leftDateArr = this.createDateArr(leftDate);
-        const leftDateListTag = this.createDateListTag(
-            leftDateArr,
-            leftDate,
-            checkin,
-            checkout
-        );
-        const rightDateArr = this.createDateArr(rightDate);
-        const rightDateListTag = this.createDateListTag(
-            rightDateArr,
-            rightDate,
-            checkin,
-            checkout
-        );
+        const { checkin, checkout, leftDate, rightDate } = this.$props;
+        const { leftDateArr, rightDateArr } = {
+            leftDateArr: this.createDateArr(leftDate),
+            rightDateArr: this.createDateArr(rightDate),
+        };
+        const { leftDateListTag, rightDateListTag } = {
+            leftDateListTag: this.createDateListTag(
+                leftDateArr,
+                leftDate,
+                checkin,
+                checkout
+            ),
+            rightDateListTag: this.createDateListTag(
+                rightDateArr,
+                rightDate,
+                checkin,
+                checkout
+            ),
+        };
         const templateVariable = {
             leftYear: leftDate.getFullYear(),
             leftMonth: leftDate.getMonth() + 1,
@@ -61,7 +62,7 @@ export class Calendar extends Component {
         return template.replace(`{{${varName}}}`, value);
     }
     createDateArr(date) {
-        const firstDay = this.transferDate(date, 1).getDay();
+        const firstDay = this.transferDate(date, 1).getDay() - 1;
         const numOfDate = new Date(
             date.getFullYear(),
             date.getMonth() + 1,
@@ -76,9 +77,7 @@ export class Calendar extends Component {
         }, []);
         return Array.from({ length: numOfWeek * 7 }).reduce((pre, v, i) => {
             const curDate =
-                i > firstDay - 1 && i - firstDay < numOfDate
-                    ? i - firstDay + 1
-                    : 0;
+                i > firstDay && i - firstDay < numOfDate ? i - firstDay : 0;
             pre[Math.floor(i / 7)].push(curDate);
             return pre;
         }, initArray);
@@ -93,7 +92,7 @@ export class Calendar extends Component {
         function createInnerTag(week, date, checkin, checkout) {
             return week.reduce((pre, day) => {
                 if (day !== 0) {
-                    pre += createLiTag.bind(this)(
+                    pre += checkDateOption.bind(this)(
                         checkin,
                         checkout,
                         this.transferDate(date, day)
@@ -105,20 +104,22 @@ export class Calendar extends Component {
                 return pre;
             }, "");
         }
-        function createLiTag(checkin, checkout, date) {
+        function checkDateOption(checkin, checkout, date) {
             const dateData = this.toDateFormatString(date);
-            const classes = [];
-            if (
+            const isEqualDate =
                 this.isEqualDate(checkin, date) ||
-                this.isEqualDate(checkout, date)
-            ) {
+                this.isEqualDate(checkout, date);
+            const classes = [];
+
+            if (date < new Date()) {
+                classes.push("inactive");
+            }
+            if (isEqualDate) {
                 classes.push("focus");
             } else if (checkin < date && date < checkout) {
                 classes.push("inner");
             }
-            if (date < new Date()) {
-                classes.push("inactive");
-            }
+
             return `<li class="${classes.join(" ")}" data-date="${dateData}">`;
         }
     }
@@ -138,30 +139,33 @@ export class Calendar extends Component {
             .padStart(2, "0")}-${date.getDate().toString().padStart(2, "0")}`;
     }
     slideCalendar(direction) {
-        const { leftDate, rightDate } = this.$state;
-        const newState = Object.keys(this.$state).reduce((pre, state) => {
+        const { leftDate, rightDate } = this.$props;
+        const newState = Object.keys(this.$props).reduce((pre, state) => {
             return pre;
         }, newState);
-        newState["leftDate"] = new Date(
-            leftDate.getFullYear(),
-            leftDate.getMonth() + direction
-        );
-        newState["rightDate"] = new Date(
-            rightDate.getFullYear(),
-            rightDate.getMonth() + direction
-        );
-        this.setState(newState);
+        const { setSearchInput } = this.$props;
+        setSearchInput({
+            leftDate: new Date(
+                leftDate.getFullYear(),
+                leftDate.getMonth() + direction
+            ),
+            rightDate: new Date(
+                rightDate.getFullYear(),
+                rightDate.getMonth() + direction
+            ),
+        });
     }
     focusingDate(ev) {
-        const { selectType } = this.$state;
-        const newState = Object.keys(this.$state).reduce((pre, state) => {
-            return pre;
-        }, newState);
+        const { selectType } = this.$props;
+        const { setSearchInput } = this.$props;
         if (selectType === "checkin") {
-            newState["checkin"] = new Date(ev.target["data-date"]);
+            setSearchInput({
+                checkin: new Date(ev.target.getAttribute("data-date")),
+            });
         } else {
-            newState["checkout"] = new Date(ev.target["data-date"]);
+            setSearchInput({
+                checkout: new Date(ev.target.getAttribute("data-date")),
+            });
         }
-        this.setState(newState);
     }
 }

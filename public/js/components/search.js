@@ -17,34 +17,46 @@ export class Search extends Component {
             },
             checkin: null,
             checkout: null,
+            price: null,
+            number: null,
             leftDate: leftDate,
             rightDate: rightDate,
             selectType: null,
         };
     }
     template() {
-        return `<div class="search_box">
-            <div class="search_bar"></div>
-            <div class="search_dropdown"></div>
-        </div>`;
+        return `<div class="search_bar"></div>
+            <div class="search_dropdown"></div>`;
     }
     mounted() {
         const $bar = document.querySelector(".search_bar");
         const $dropdown = document.querySelector(".search_dropdown");
 
-        const { checkin, checkout } = this.$state;
+        const { checkin, checkout, price, number, selectType } = this.$state;
 
-        new Bar($bar, { checkin, checkout });
+        new Bar($bar, {
+            checkin,
+            checkout,
+            price,
+            number,
+            selectType,
+            setSearchInput: this.setSearchInput.bind(this),
+        });
         new Dropdown($dropdown, {
             ...this.$state,
             setSearchInput: this.setSearchInput.bind(this),
         });
     }
-    render() {
-        this.$target.insertAdjacentHTML("afterbegin", this.template());
-        this.mounted();
-    }
-    setSearchInput(data, type) {
-        this.$state[type] = data;
+    setSearchInput(newState) {
+        const tempState = Object.keys(this.$state).reduce((pre, type) => {
+            pre[type] = this.$state[type];
+            return pre;
+        }, {});
+        Object.keys(this.$state).forEach((type) => {
+            if (newState[type] !== undefined) {
+                tempState[type] = newState[type];
+            }
+        });
+        this.setState(tempState);
     }
 }

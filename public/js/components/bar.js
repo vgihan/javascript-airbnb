@@ -1,25 +1,24 @@
 import { Component } from "../core/component.js";
 
+const CHECKED = false;
+const UNCHECKED = true;
+
 export class Bar extends Component {
     setup() {
         this.$state = {
             checkin: {
-                check: "",
                 title: "체크인",
                 placeholder: "날짜 입력",
             },
             checkout: {
-                check: "",
                 title: "체크아웃",
                 placeholder: "날짜 입력",
             },
             price: {
-                check: "",
                 title: "요금",
                 placeholder: "금액대 입력",
             },
             number: {
-                check: "",
                 title: "인원",
                 placeholder: "게스트 추가",
             },
@@ -30,11 +29,17 @@ export class Bar extends Component {
             "#template_search_item"
         ).innerHTML;
         const items = Object.keys(this.$state).reduce((pre, className) => {
+            const placeholder =
+                this.$props[className] === null
+                    ? this.$state[className].placeholder
+                    : this.getDateFormat(this.$props[className]);
+            const checkClass =
+                this.$props.selectType === className ? "checked_item" : "";
             pre += searchItemTemplate
                 .replace("{{className}}", className)
-                .replace("{{checkClass}}", this.$state[className].check)
+                .replace("{{checkClass}}", checkClass)
                 .replace("{{title}}", this.$state[className].title)
-                .replace("{{placeholder}}", this.$state[className].placeholder);
+                .replace("{{placeholder}}", placeholder);
             return pre;
         }, "");
         return `${items}
@@ -43,39 +48,46 @@ export class Bar extends Component {
         </div>`;
     }
     setEvent() {
-        this.addEvent("click", ".search_bar", (ev) => {
-            this.changeCheckState.bind(this)(ev);
-        });
+        this.addEvent("click", ".search_bar", this.changeCheckState.bind(this));
     }
     changeCheckState(ev) {
+        const { setSearchInput } = this.$props;
         const target = ev.target.closest(".search_bar_item");
-        const items = ["checkin", "checkout", "price", "number"];
-        items.forEach((item) => {
+        const itemType = {
+            checkin: "calendar",
+            checkout: "calendar",
+            price: "price",
+            number: "number",
+        };
+        Object.keys(itemType).forEach((item) => {
             const isBarItem = target.classList.contains(item);
-            const isChecked = this.$state[item].check === "checked_item";
+            const isChecked = this.$props.selectType === item;
             if (isBarItem && !isChecked) {
-                this.setState(this.toggleCheck(this.$state, item));
+                setSearchInput(this.makeNewState(itemType, item, UNCHECKED));
             } else if (isBarItem && isChecked) {
-                this.setState(this.removeCheck(this.$state, item));
+                setSearchInput(this.makeNewState(itemType, item, CHECKED));
             }
         });
     }
-    removeCheck(state, target) {
-        return Object.keys(state).reduce((pre, item) => {
-            if (target === item) {
-                pre[item].check = "";
-            }
-            return pre;
-        }, state);
+    makeNewState(itemType, item, option) {
+        const newState = {
+            openedDropdown: {
+                calendar: false,
+                price: false,
+                number: false,
+            },
+            selectType: null,
+        };
+        if (option) {
+            newState.openedDropdown[itemType[item]] = true;
+            newState.selectType = item;
+        }
+
+        return newState;
     }
-    toggleCheck(state, target) {
-        return Object.keys(state).reduce((pre, item) => {
-            if (target === item) {
-                pre[item].check = "checked_item";
-            } else {
-                pre[item].check = "";
-            }
-            return pre;
-        }, state);
+    getDateFormat(date) {
+        return `${date.getFullYear()}-${(date.getMonth() + 1)
+            .toString()
+            .padStart(2, "0")}-${date.getDate().toString().padStart(2, "0")}`;
     }
 }

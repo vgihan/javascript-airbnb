@@ -4,12 +4,16 @@ import { Search } from "./search";
 
 export class Main extends Component {
     template() {
-        return `<div class="main_box"></div>`;
+        return `<div class="main_box">
+            <header></header>
+            <div class="search_box"></div>
+        </div>`;
     }
     mounted() {
-        const $main = document.querySelector(".main_box");
+        const $search = this.$target.querySelector(".search_box");
+        const $header = this.$target.querySelector("header");
 
-        new Search($main, {});
-        new Header($main, {});
+        new Search($search, {});
+        new Header($header, {});
     }
 }
