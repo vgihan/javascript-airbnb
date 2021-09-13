@@ -72,6 +72,8 @@
         }
     }
     .search_dropdown {
+        display: flex;
+        justify-content: flex-end;
         .dropdown_item.calendar.hidden {
             display: none;
         }
@@ -155,6 +157,37 @@
                         margin-left: 162px;
                     }
                 }
+            }
+        }
+        .dropdown_item.price {
+            display: flex;
+            flex-direction: row;
+            align-items: center;
+            justify-content: center;
+
+            position: relative;
+            width: 600px;
+            height: 400px;
+            .price_title {
+                font-weight: bold;
+                margin-bottom: 50px;
+            }
+            input {
+                border: 1px solid #999;
+            }
+        }
+        .dropdown_item.number {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            position: relative;
+            width: 600px;
+            height: 400px;
+            .input_box {
+                display: flex;
+                flex-direction: row;
+                justify-content: space-between;
             }
         }
     }
