@@ -1,4 +1,4 @@
-import { Component } from "../core/component.js";
+import { Component } from "../../core/component.js";
 
 const CHECKED = false;
 const UNCHECKED = true;

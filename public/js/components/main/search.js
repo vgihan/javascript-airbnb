@@ -1,4 +1,4 @@
-import { Component } from "../core/component";
+import { Component } from "../../core/component";
 import { Bar } from "./bar";
 import { Dropdown } from "./dropdown";
 

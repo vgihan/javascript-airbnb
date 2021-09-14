@@ -1,4 +1,4 @@
-import { Component } from "../core/component.js";
+import { Component } from "../../core/component.js";
 import { Header } from "./header";
 import { Search } from "./search";
 
