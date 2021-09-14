@@ -56,28 +56,32 @@ export class Bar extends Component {
         return titleObj[type];
     }
     setEvent() {
-        this.addEvent("click", ".search_bar", this.changeCheckState.bind(this));
+        this.addEvent("click", ".search_bar", this.changeCheckState());
     }
-    changeCheckState(ev) {
-        const { setSearchInput } = this.$props;
-        const target = ev.target.closest(".search_bar_item");
-        const itemType = {
-            checkin: "calendar",
-            checkout: "calendar",
-            price: "price",
-            number: "number",
+    changeCheckState() {
+        return (ev) => {
+            const { setSearchInput } = this.$props;
+            const target = ev.target.closest(".search_bar_item");
+            const itemType = {
+                checkin: "calendar",
+                checkout: "calendar",
+                price: "price",
+                number: "number",
+            };
+            Object.keys(itemType).forEach((item) => {
+                const isBarItem = target.classList.contains(item);
+                const isChecked = this.$props.selectType === item;
+                if (isBarItem && !isChecked) {
+                    setSearchInput(
+                        this.makeNewState(itemType, item, UNCHECKED)
+                    );
+                } else if (isBarItem && isChecked) {
+                    setSearchInput(this.makeNewState(itemType, item, CHECKED));
+                }
+            });
         };
-        Object.keys(itemType).forEach((item) => {
-            const isBarItem = target.classList.contains(item);
-            const isChecked = this.$props.selectType === item;
-            if (isBarItem && !isChecked) {
-                setSearchInput(this.makeNewState(itemType, item, UNCHECKED));
-            } else if (isBarItem && isChecked) {
-                setSearchInput(this.makeNewState(itemType, item, CHECKED));
-            }
-        });
     }
-    makeNewState(itemType, item, option) {
+    makeNewState = (itemType, item, option) => {
         const newState = {
             openedDropdown: {
                 calendar: false,
@@ -92,7 +96,7 @@ export class Bar extends Component {
         }
 
         return newState;
-    }
+    };
     getDateFormat(date) {
         return `${date.getMonth() + 1}월 ${date.getDate()}일`;
     }

@@ -25,40 +25,39 @@ export class Number extends Component {
         }, template);
     }
     setEvent() {
-        this.addEvent(
-            "click",
-            ".number_box",
-            this.changeNumOfPerson.bind(this)
-        );
+        this.addEvent("click", ".number_box", this.changeNumOfPerson());
     }
-    changeNumOfPerson(ev) {
-        const { number, setSearchInput } = this.$props;
-        const plusBtn = ev.target.closest(".change_btn.plus");
-        const minusBtn = ev.target.closest(".change_btn.minus");
-        const newNumber = {
-            numOfAdult:
-                number?.numOfAdult === undefined ? 0 : number?.numOfAdult,
-            numOfChild:
-                number?.numOfChild === undefined ? 0 : number?.numOfChild,
-            numOfBaby: number?.numOfBaby === undefined ? 0 : number?.numOfBaby,
-        };
-        const typeObj = {
-            adult: "numOfAdult",
-            child: "numOfChild",
-            baby: "numOfBaby",
-        };
-        if (!plusBtn && !minusBtn) return;
-        if (plusBtn) {
-            const type = plusBtn.parentNode.parentNode.classList[1];
-            newNumber[typeObj[type]] += 1;
-        } else {
-            if (minusBtn.classList.contains("inactive")) return;
-            const type = minusBtn.parentNode.parentNode.classList[1];
-            newNumber[typeObj[type]] -= 1;
-        }
+    changeNumOfPerson() {
+        return (ev) => {
+            const { number, setSearchInput } = this.$props;
+            const plusBtn = ev.target.closest(".change_btn.plus");
+            const minusBtn = ev.target.closest(".change_btn.minus");
+            const newNumber = {
+                numOfAdult:
+                    number?.numOfAdult === undefined ? 0 : number?.numOfAdult,
+                numOfChild:
+                    number?.numOfChild === undefined ? 0 : number?.numOfChild,
+                numOfBaby:
+                    number?.numOfBaby === undefined ? 0 : number?.numOfBaby,
+            };
+            const typeObj = {
+                adult: "numOfAdult",
+                child: "numOfChild",
+                baby: "numOfBaby",
+            };
+            if (!plusBtn && !minusBtn) return;
+            if (plusBtn) {
+                const type = plusBtn.parentNode.parentNode.classList[1];
+                newNumber[typeObj[type]] += 1;
+            } else {
+                if (minusBtn.classList.contains("inactive")) return;
+                const type = minusBtn.parentNode.parentNode.classList[1];
+                newNumber[typeObj[type]] -= 1;
+            }
 
-        setSearchInput({
-            number: newNumber,
-        });
+            setSearchInput({
+                number: newNumber,
+            });
+        };
     }
 }
