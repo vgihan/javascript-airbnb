@@ -5,20 +5,24 @@ const UNCHECKED = true;
 
 export class Bar extends Component {
     template() {
-        const searchItemTemplate = document.querySelector(
-            "#template_search_item"
-        ).innerHTML;
+        const placeholderObj = {
+            checkin: "날짜 입력",
+            checkout: "날짜 입력",
+            price: "금액대 입력",
+            number: "게스트 입력",
+        };
         const items = ["checkin", "checkout", "price", "number"];
         const template = items.reduce((pre, item) => {
-            const placeholder = this.getPlaceholder(item);
-            const checkClass =
-                this.$props.selectType === item ? "checked_item" : "";
-            const title = this.getTitle(item);
-            pre += searchItemTemplate
-                .replace("{{className}}", item)
-                .replace("{{checkClass}}", checkClass)
-                .replace("{{title}}", title)
-                .replace("{{placeholder}}", placeholder);
+            pre += `<div class="search_bar_item ${item} ${this.getCheck(item)}">
+                <div class="item_title">
+                    <p>${this.getTitle(item)}</p>
+                </div>
+                <div class="item_content">
+                    <input type="text" id="input_${item}" value="${this.getValue(
+                item
+            )}" placeholder="${placeholderObj[item]}" readonly/>
+                </div>
+            </div>`;
             return pre;
         }, "");
         return `${template}
@@ -26,25 +30,25 @@ export class Bar extends Component {
             <div class="submit_btn"></div>
         </div>`;
     }
-    getPlaceholder(type) {
+    getCheck(type) {
+        return this.$props.selectType === type ? "checked_item" : "";
+    }
+    getValue(type) {
         const { checkin, checkout, price, number } = this.$props;
-        const placeholderObj = {
-            checkin:
-                checkin === null ? "날짜 입력" : this.getDateFormat(checkin),
-            checkout:
-                checkout === null ? "날짜 입력" : this.getDateFormat(checkout),
-            price:
-                price === null ? "금액대 입력" : `${price.min} ~ ${price.max}`,
+        const valueObj = {
+            checkin: checkin === null ? "" : this.getDateFormat(checkin),
+            checkout: checkout === null ? "" : this.getDateFormat(checkout),
+            price: price === null ? "" : `${price.min} ~ ${price.max}`,
             number:
                 number === null
-                    ? "게스트 추가"
+                    ? ""
                     : `게스트 ${
                           number.numOfAdult +
                           number.numOfChild +
                           number.numOfBaby
                       }`,
         };
-        return placeholderObj[type];
+        return valueObj[type];
     }
     getTitle(type) {
         const titleObj = {
