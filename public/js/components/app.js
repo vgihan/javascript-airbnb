@@ -1,7 +1,7 @@
-import { Main } from "./main";
+import { Main } from "./main/main";
 import { addImage } from "./add_image";
 import { Component } from "../core/component";
-import { Result } from "./result";
+import { Result } from "./result/result";
 
 class App extends Component {
     setup() {
