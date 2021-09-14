@@ -12,8 +12,9 @@ export class Main extends Component {
     mounted() {
         const $search = this.$target.querySelector(".search_box");
         const $header = this.$target.querySelector("header");
+        const { submit } = this.$props;
 
-        new Search($search, {});
+        new Search($search, { submit });
         new Header($header, {});
     }
 }
