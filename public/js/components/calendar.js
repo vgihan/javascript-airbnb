@@ -3,17 +3,16 @@ import { Component } from "../core/component";
 export class Calendar extends Component {
     setEvent() {
         this.addEvent("click", ".dropdown_item.calendar", (ev) => {
-            console.log(ev.target);
             if (ev.target.classList.contains("left_btn")) {
-                this.slideCalendar.bind(this)(-1);
+                this.slideCalendar(-1);
                 return;
             }
             if (ev.target.classList.contains("right_btn")) {
-                this.slideCalendar.bind(this)(1);
+                this.slideCalendar(1);
                 return;
             }
             if (ev.target.nodeName === "LI") {
-                this.focusingDate.bind(this)(ev);
+                this.focusingDate(ev);
                 return;
             }
         });
@@ -83,16 +82,10 @@ export class Calendar extends Component {
         }, initArray);
     }
     createDateListTag(dateArr, date, checkin, checkout) {
-        return dateArr.reduce((pre, week) => {
-            pre += `<ul>`;
-            pre += createInnerTag.bind(this)(week, date, checkin, checkout);
-            pre += `</ul>`;
-            return pre;
-        }, "");
-        function createInnerTag(week, date, checkin, checkout) {
+        const createInnerTag = (week, date, checkin, checkout) => {
             return week.reduce((pre, day) => {
                 if (day !== 0) {
-                    pre += checkDateOption.bind(this)(
+                    pre += checkDateOption(
                         checkin,
                         checkout,
                         this.transferDate(date, day)
@@ -103,8 +96,8 @@ export class Calendar extends Component {
                 }
                 return pre;
             }, "");
-        }
-        function checkDateOption(checkin, checkout, date) {
+        };
+        const checkDateOption = (checkin, checkout, date) => {
             const dateData = this.toDateFormatString(date);
             const isEqualDate =
                 this.isEqualDate(checkin, date) ||
@@ -121,7 +114,13 @@ export class Calendar extends Component {
             }
 
             return `<li class="${classes.join(" ")}" data-date="${dateData}">`;
-        }
+        };
+        return dateArr.reduce((pre, week) => {
+            pre += `<ul>`;
+            pre += createInnerTag(week, date, checkin, checkout);
+            pre += `</ul>`;
+            return pre;
+        }, "");
     }
     isEqualDate(dateA, dateB) {
         if (!dateA) return false;

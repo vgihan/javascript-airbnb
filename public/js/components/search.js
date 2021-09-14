@@ -28,6 +28,20 @@ export class Search extends Component {
         return `<div class="search_bar"></div>
             <div class="search_dropdown"></div>`;
     }
+    setSearchInput() {
+        return (newState) => {
+            const tempState = Object.keys(this.$state).reduce((pre, type) => {
+                pre[type] = this.$state[type];
+                return pre;
+            }, {});
+            Object.keys(this.$state).forEach((type) => {
+                if (newState[type] !== undefined) {
+                    tempState[type] = newState[type];
+                }
+            });
+            this.setState(tempState);
+        };
+    }
     mounted() {
         const $bar = document.querySelector(".search_bar");
         const $dropdown = document.querySelector(".search_dropdown");
@@ -40,23 +54,11 @@ export class Search extends Component {
             price,
             number,
             selectType,
-            setSearchInput: this.setSearchInput.bind(this),
+            setSearchInput: this.setSearchInput(),
         });
         new Dropdown($dropdown, {
             ...this.$state,
-            setSearchInput: this.setSearchInput.bind(this),
+            setSearchInput: this.setSearchInput(),
         });
-    }
-    setSearchInput(newState) {
-        const tempState = Object.keys(this.$state).reduce((pre, type) => {
-            pre[type] = this.$state[type];
-            return pre;
-        }, {});
-        Object.keys(this.$state).forEach((type) => {
-            if (newState[type] !== undefined) {
-                tempState[type] = newState[type];
-            }
-        });
-        this.setState(tempState);
     }
 }

@@ -12,22 +12,24 @@ export class Price extends Component {
         </div>`;
     }
     setEvent() {
-        this.addEvent("click", "#regist_price", this.registPrice.bind(this));
+        this.addEvent("click", "#regist_price", this.registPrice());
     }
     registPrice() {
-        const { setSearchInput } = this.$props;
-        const min = this.$target.querySelector("#price_min").value;
-        const max = this.$target.querySelector("#price_max").value;
-        setSearchInput({
-            price: {
-                min: min,
-                max: max,
-            },
-            openedDropdown: {
-                calendar: false,
-                price: false,
-                number: false,
-            },
-        });
+        return () => {
+            const { setSearchInput } = this.$props;
+            const min = this.$target.querySelector("#price_min").value;
+            const max = this.$target.querySelector("#price_max").value;
+            setSearchInput({
+                price: {
+                    min: min,
+                    max: max,
+                },
+                openedDropdown: {
+                    calendar: false,
+                    price: false,
+                    number: false,
+                },
+            });
+        };
     }
 }
