@@ -1,11 +1,17 @@
 import { Main } from "./main";
 import { addImage } from "./add_image";
+import { Component } from "../core/component";
 
-export function app() {
-    const $wrap = document.querySelector(".content_wrap");
+class App extends Component {
+    mounted() {
+        const $wrap = document.querySelector(".content_wrap");
 
-    new Main($wrap, {});
+        new Main($wrap, {});
+    }
 }
 
-app();
-addImage();
+(function () {
+    const $wrap = document.querySelector(".content_wrap");
+    new App($wrap, {});
+    addImage();
+})();

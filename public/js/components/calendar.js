@@ -157,6 +157,11 @@ export class Calendar extends Component {
     focusingDate(ev) {
         const { selectType } = this.$props;
         const { setSearchInput } = this.$props;
+        const targetClasses = ev.target.classList;
+        const isActive =
+            !targetClasses.contains("inactive") &&
+            !targetClasses.contains("empty");
+        if (!isActive) return;
         if (selectType === "checkin") {
             setSearchInput({
                 checkin: new Date(ev.target.getAttribute("data-date")),
