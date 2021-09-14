@@ -45,6 +45,9 @@
         }
     }
     .content {
-        position: relative;
+        display: flex;
+        flex-direction: row;
+        width: 50%;
+        height: 100%;
     }
 }
