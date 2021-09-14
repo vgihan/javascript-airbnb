@@ -9,6 +9,7 @@ module.exports = {
             "./public/css/utils.scss",
             "./public/css/reset.scss",
             "./public/css/font.scss",
+            "./public/css/result.scss",
             "./public/font/NotoSansKR-Light.otf",
         ],
     },
