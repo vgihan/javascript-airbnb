@@ -1,6 +1,9 @@
 import { Component } from "../../core/component";
 
 export class ItemBox extends Component {
+    setup() {
+        this.state = this.fetchHouseData();
+    }
     template() {
         const { numOfAdult, numOfChild, numOfBaby } = this.props;
         const peopleSum = numOfAdult + numOfChild + numOfBaby;
@@ -24,5 +27,20 @@ export class ItemBox extends Component {
     }
     toMonthDate(date) {
         return `${date.getMonth() + 1}월 ${date.getDate()}일`;
+    }
+    async fetchHouseData() {
+        const { minPrice, maxPrice, numOfAdult, numOfChild, numOfBaby } =
+            this.props;
+        const url = `/house?minPrice=${minPrice}&maxPrice=${maxPrice}&sumOfPeople=${
+            numOfAdult + numOfChild + numOfBaby
+        }`;
+        const res = await fetch(url, {
+            method: "GET",
+            headers: {
+                "Content-Type": "application/json",
+            },
+        });
+        const houseItem = await res.json();
+        console.log(houseItem);
     }
 }

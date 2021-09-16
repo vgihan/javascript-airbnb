@@ -8,7 +8,7 @@ const conn = mysql.createConnection({
 
 async function read(condition) {
     const { minPrice, maxPrice, sumOfPeople } = condition;
-    const query = `SELECT * FROM airbnb 
+    const query = `SELECT * FROM house 
                    WHERE price >= ${minPrice} AND price <= ${maxPrice} AND accommodates >= ${sumOfPeople}`;
 
     return await execute(query);

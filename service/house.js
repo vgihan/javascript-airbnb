@@ -1,13 +1,13 @@
 const model = require("../model/house");
 
 async function itemListService(userCondition) {
-    const { minPrice, maxPrice, numOfAdult, numOfChild, numOfBaby } =
-        userCondition;
+    const { minPrice, maxPrice, sumOfPeople } = userCondition;
     const rows = await model.read({
         minPrice,
         maxPrice,
-        sumOfPeople: numOfAdult + numOfChild + numOfBaby,
+        sumOfPeople,
     });
+    console.log(rows);
     return rows;
 }
 
