@@ -1,7 +1,7 @@
 import { Component } from "../../core/component.js";
 
-const CHECKED = false;
-const UNCHECKED = true;
+const CHECKED = true;
+const UNCHECKED = false;
 
 export class Bar extends Component {
     template() {
@@ -13,12 +13,14 @@ export class Bar extends Component {
         };
         const items = ["checkin", "checkout", "price", "number"];
         const template = items.reduce((pre, item) => {
-            pre += `<div class="search_bar_item ${item} ${this.getCheck(item)}">
+            pre += `<div class="search_bar_item ${item} ${this.getCheckString(
+                item
+            )}">
                 <div class="item_title">
                     <p>${this.getTitle(item)}</p>
                 </div>
                 <div class="item_content">
-                    <input type="text" id="input_${item}" value="${this.getValue(
+                    <input type="text" id="input_${item}" value="${this.getTextInputValue(
                 item
             )}" placeholder="${placeholderObj[item]}" readonly/>
                 </div>
@@ -30,12 +32,12 @@ export class Bar extends Component {
             <div class="submit_btn"></div>
         </div>`;
     }
-    getCheck(type) {
-        return this.$props.selectType === type ? "checked_item" : "";
+    getCheckString(type) {
+        return this.props.selectType === type ? "checked_item" : "";
     }
-    getValue(type) {
-        const { checkin, checkout, price, number } = this.$props;
-        const valueObj = {
+    getTextInputValue(type) {
+        const { checkin, checkout, price, number } = this.props;
+        const textInputValueObj = {
             checkin: checkin === null ? "" : this.getDateFormat(checkin),
             checkout: checkout === null ? "" : this.getDateFormat(checkout),
             price: price === null ? "" : `${price.min} ~ ${price.max}`,
@@ -48,7 +50,7 @@ export class Bar extends Component {
                           number.numOfBaby
                       }`,
         };
-        return valueObj[type];
+        return textInputValueObj[type];
     }
     getTitle(type) {
         const titleObj = {
@@ -64,7 +66,8 @@ export class Bar extends Component {
     }
     changeCheckState() {
         return (ev) => {
-            const { setSearchInput } = this.$props;
+            if (ev.target.classList.contains(".search_bar")) return;
+            const { setSearchInput } = this.props;
             const target = ev.target.closest(".search_bar_item");
             const itemType = {
                 checkin: "calendar",
@@ -74,7 +77,7 @@ export class Bar extends Component {
             };
             Object.keys(itemType).forEach((item) => {
                 const isBarItem = target.classList.contains(item);
-                const isChecked = this.$props.selectType === item;
+                const isChecked = this.props.selectType === item;
                 if (isBarItem && !isChecked) {
                     setSearchInput(
                         this.makeNewState(itemType, item, UNCHECKED)
@@ -94,7 +97,7 @@ export class Bar extends Component {
             },
             selectType: null,
         };
-        if (option) {
+        if (!option) {
             newState.openedDropdown[itemType[item]] = true;
             newState.selectType = item;
         }

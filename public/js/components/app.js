@@ -5,7 +5,7 @@ import { Result } from "./result/result";
 
 class App extends Component {
     setup() {
-        this.$state = {
+        this.state = {
             page: "",
             checkin: null,
             checkout: null,
@@ -18,11 +18,11 @@ class App extends Component {
     }
     mounted() {
         const $wrap = document.querySelector(".content_wrap");
-        const { page } = this.$state;
+        const { page } = this.state;
         if (page === "") {
             new Main($wrap, { submit: this.submit() });
         } else if (page === "result") {
-            new Result($wrap, this.$state);
+            new Result($wrap, this.state);
         }
     }
     submit() {
@@ -32,8 +32,8 @@ class App extends Component {
     }
 }
 
-(function () {
+document.addEventListener("DOMContentLoaded", () => {
     const $wrap = document.querySelector(".content_wrap");
     new App($wrap, {});
     addImage();
-})();
+});

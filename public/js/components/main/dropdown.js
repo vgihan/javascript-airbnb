@@ -5,7 +5,7 @@ import { Number } from "./number";
 
 export class Dropdown extends Component {
     template() {
-        const checkOpen = this.$props.openedDropdown;
+        const checkOpen = this.props.openedDropdown;
         const calendarOption = checkOpen.calendar ? "" : "hidden";
         const priceOption = checkOpen.price ? "" : "hidden";
         const numberOption = checkOpen.number ? "" : "hidden";
@@ -27,7 +27,7 @@ export class Dropdown extends Component {
             selectType,
             number,
             price,
-        } = this.$props;
+        } = this.props;
 
         new Calendar($dropdownCal, {
             checkin,
@@ -35,15 +35,15 @@ export class Dropdown extends Component {
             leftDate,
             rightDate,
             selectType,
-            setSearchInput: this.$props.setSearchInput,
+            setSearchInput: this.props.setSearchInput,
         });
         new Price($dropdownPrice, {
             price,
-            setSearchInput: this.$props.setSearchInput,
+            setSearchInput: this.props.setSearchInput,
         });
         new Number($dropdownNumber, {
             number,
-            setSearchInput: this.$props.setSearchInput,
+            setSearchInput: this.props.setSearchInput,
         });
     }
 }

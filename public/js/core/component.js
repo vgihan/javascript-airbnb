@@ -1,10 +1,10 @@
 export class Component {
     $target;
-    $state;
-    $props;
-    constructor($target, $props) {
+    state;
+    props;
+    constructor($target, props) {
         this.$target = $target;
-        this.$props = $props;
+        this.props = props;
         this.setup();
         this.render();
         this.setEvent();
@@ -20,7 +20,7 @@ export class Component {
     }
     setEvent() {}
     setState(newState) {
-        this.$state = { ...this.$state, ...newState };
+        this.state = { ...this.state, ...newState };
         this.render();
     }
     addEvent(eventName, selector, callback) {

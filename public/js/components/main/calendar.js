@@ -18,7 +18,7 @@ export class Calendar extends Component {
         });
     }
     template() {
-        const { checkin, checkout, leftDate, rightDate } = this.$props;
+        const { checkin, checkout, leftDate, rightDate } = this.props;
         const { leftDateArr, rightDateArr } = {
             leftDateArr: this.createDateArr(leftDate),
             rightDateArr: this.createDateArr(rightDate),
@@ -138,11 +138,11 @@ export class Calendar extends Component {
             .padStart(2, "0")}-${date.getDate().toString().padStart(2, "0")}`;
     }
     slideCalendar(direction) {
-        const { leftDate, rightDate } = this.$props;
-        const newState = Object.keys(this.$props).reduce((pre, state) => {
+        const { leftDate, rightDate } = this.props;
+        const newState = Object.keys(this.props).reduce((pre, state) => {
             return pre;
         }, newState);
-        const { setSearchInput } = this.$props;
+        const { setSearchInput } = this.props;
         setSearchInput({
             leftDate: new Date(
                 leftDate.getFullYear(),
@@ -155,8 +155,8 @@ export class Calendar extends Component {
         });
     }
     focusingDate(ev) {
-        const { selectType } = this.$props;
-        const { setSearchInput } = this.$props;
+        const { selectType } = this.props;
+        const { setSearchInput } = this.props;
         const targetClasses = ev.target.classList;
         const isActive =
             !targetClasses.contains("inactive") &&

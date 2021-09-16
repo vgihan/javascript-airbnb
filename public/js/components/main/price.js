@@ -16,10 +16,10 @@ export class Price extends Component {
     }
     registPrice() {
         return () => {
-            const { setSearchInput } = this.$props;
+            const { setSearchInput } = this.props;
             const min = this.$target.querySelector("#price_min").value;
             const max = this.$target.querySelector("#price_max").value;
-            if (!this.validation(min, max)) return;
+            if (!this.priceValidation(min, max)) return;
             setSearchInput({
                 price: {
                     min: min,
@@ -33,7 +33,7 @@ export class Price extends Component {
             });
         };
     }
-    validation(min, max) {
+    priceValidation(min, max) {
         console.log(min, max);
         if (min === "" || max === "") {
             alert("최소금액과 최대금액을 모두 입력하세요 !");

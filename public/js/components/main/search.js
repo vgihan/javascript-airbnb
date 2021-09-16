@@ -9,7 +9,7 @@ export class Search extends Component {
             leftDate.getFullYear(),
             leftDate.getMonth() + 1
         );
-        this.$state = {
+        this.state = {
             openedDropdown: {
                 calendar: false,
                 price: false,
@@ -31,7 +31,7 @@ export class Search extends Component {
     setEvent() {
         this.addEvent("click", ".submit_btn", this.submitCondition());
     }
-    validation(checkin, checkout, price, number) {
+    detailInputValidation(checkin, checkout, price, number) {
         if (!checkin || !checkout) {
             alert("체크인/체크아웃 날짜를 확인하세요");
             return false;
@@ -48,9 +48,10 @@ export class Search extends Component {
     }
     submitCondition() {
         return () => {
-            const { checkin, checkout, price, number } = this.$state;
-            const { submit } = this.$props;
-            if (!this.validation(checkin, checkout, price, number)) return;
+            const { checkin, checkout, price, number } = this.state;
+            const { submit } = this.props;
+            if (!this.detailInputValidation(checkin, checkout, price, number))
+                return;
             submit({
                 page: "result",
                 checkin: checkin,
@@ -65,12 +66,12 @@ export class Search extends Component {
     }
     setSearchInput() {
         return (newState) => {
-            const tempState = Object.keys(this.$state).reduce((pre, type) => {
-                pre[type] = this.$state[type];
+            const tempState = Object.keys(this.state).reduce((pre, type) => {
+                pre[type] = this.state[type];
                 return pre;
             }, {});
-            Object.keys(this.$state).forEach((type) => {
-                if (newState[type] !== undefined) {
+            Object.keys(this.state).forEach((type) => {
+                if (newState[type]) {
                     tempState[type] = newState[type];
                 }
             });
@@ -81,7 +82,7 @@ export class Search extends Component {
         const $bar = document.querySelector(".search_bar");
         const $dropdown = document.querySelector(".search_dropdown");
 
-        const { checkin, checkout, price, number, selectType } = this.$state;
+        const { checkin, checkout, price, number, selectType } = this.state;
 
         new Bar($bar, {
             checkin,
@@ -92,7 +93,7 @@ export class Search extends Component {
             setSearchInput: this.setSearchInput(),
         });
         new Dropdown($dropdown, {
-            ...this.$state,
+            ...this.state,
             setSearchInput: this.setSearchInput(),
         });
     }

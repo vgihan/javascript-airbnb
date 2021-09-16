@@ -2,8 +2,9 @@ import { Component } from "../../core/component";
 
 export class Number extends Component {
     template() {
-        const { number } = this.$props;
-        const template = document.querySelector("#template_number").innerHTML;
+        const { number } = this.props;
+        const htmlTemplate =
+            document.querySelector("#template_number").innerHTML;
         const isActive = (target) => {
             return target === 0 || target === undefined;
         };
@@ -22,14 +23,14 @@ export class Number extends Component {
                     : templateVariable[type];
             pre = pre.replace(`{{${type}}}`, value);
             return pre;
-        }, template);
+        }, htmlTemplate);
     }
     setEvent() {
         this.addEvent("click", ".number_box", this.changeNumOfPerson());
     }
     changeNumOfPerson() {
         return (ev) => {
-            const { number, setSearchInput } = this.$props;
+            const { number, setSearchInput } = this.props;
             const plusBtn = ev.target.closest(".change_btn.plus");
             const minusBtn = ev.target.closest(".change_btn.minus");
             const newNumber = {
