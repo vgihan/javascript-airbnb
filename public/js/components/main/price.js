@@ -34,7 +34,6 @@ export class Price extends Component {
         };
     }
     priceValidation(min, max) {
-        console.log(min, max);
         if (min === "" || max === "") {
             alert("최소금액과 최대금액을 모두 입력하세요 !");
             return false;

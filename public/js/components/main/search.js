@@ -53,7 +53,6 @@ export class Search extends Component {
             if (!this.detailInputValidation(checkin, checkout, price, number))
                 return;
             submit({
-                page: "result",
                 checkin: checkin,
                 checkout: checkout,
                 minPrice: price.min,

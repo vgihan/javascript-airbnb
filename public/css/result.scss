@@ -11,6 +11,9 @@
         position: relative;
         width: 100%;
         height: 100px;
+        .header_background {
+            background-image: url("../img/main_background.png");
+        }
         .logo {
             font-size: 50px;
             font-weight: 900;

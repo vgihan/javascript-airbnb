@@ -66,7 +66,7 @@ export class Bar extends Component {
     }
     changeCheckState() {
         return (ev) => {
-            if (ev.target.classList.contains(".search_bar")) return;
+            if (ev.target.classList.contains("search_bar")) return;
             const { setSearchInput } = this.props;
             const target = ev.target.closest(".search_bar_item");
             const itemType = {

@@ -6,7 +6,6 @@ import { Result } from "./result/result";
 class App extends Component {
     setup() {
         this.state = {
-            page: "",
             checkin: null,
             checkout: null,
             minPrice: null,
@@ -16,17 +15,21 @@ class App extends Component {
             numOfBaby: null,
         };
     }
+    setEvent() {
+        window.addEventListener("popstate", this.mounted.bind(this));
+    }
     mounted() {
+        const path = document.location.pathname;
         const $wrap = document.querySelector(".content_wrap");
-        const { page } = this.state;
-        if (page === "") {
+        if (path === "/") {
             new Main($wrap, { submit: this.submit() });
-        } else if (page === "result") {
+        } else if (path === "/result") {
             new Result($wrap, this.state);
         }
     }
     submit() {
         return (inputObj) => {
+            window.history.pushState(inputObj, "", "/result");
             this.setState(inputObj);
         };
     }

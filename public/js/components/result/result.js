@@ -3,9 +3,6 @@ import { ItemBox } from "./item_box";
 import { ResultHeader } from "./result_header";
 
 export class Result extends Component {
-    setup() {
-        console.log(this.$props);
-    }
     template() {
         return `<div class="result_box">
             <header></header>
@@ -22,7 +19,7 @@ export class Result extends Component {
         const $modal = this.$target.querySelector(".modal_box");
         const $map = this.$target.querySelector(".map_box");
 
-        new ItemBox($itembox, this.$props);
-        new ResultHeader($header, this.$props);
+        new ItemBox($itembox, this.props);
+        new ResultHeader($header, this.props);
     }
 }
