@@ -1,4 +1,5 @@
 import { Component } from "../../core/component.js";
+import searchButton from "../../../img/search_button.png";
 
 const CHECKED = true;
 const UNCHECKED = false;
@@ -29,8 +30,14 @@ export class Bar extends Component {
         }, "");
         return `${template}
         <div class="search_bar_item submit">
-            <div class="submit_btn"></div>
+            <div class="submit_btn">
+                <img />
+            </div>
         </div>`;
+    }
+    addImage() {
+        const submitBtn = this.$target.querySelector(".submit_btn > img");
+        submitBtn.src = searchButton;
     }
     getCheckString(type) {
         return this.props.selectType === type ? "checked_item" : "";

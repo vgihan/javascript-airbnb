@@ -9,8 +9,12 @@
         <div class="content_wrap"></div>
         <div id="templates">
             <template id="template_header">
-                <div class="header_background"></div>
-                <div class="logo"></div>
+                <div class="header_background">
+                    <img src />
+                </div>
+                <div class="logo">
+                    <img src />
+                </div>
                 <div class="header_menu">
                     <div class="header_menu_item room">
                         <p>숙소</p>
@@ -22,7 +26,9 @@
                         <p>온라인 체험</p>
                     </div>
                 </div>
-                <div class="login_btn"></div>
+                <div class="login_btn">
+                    <img src />
+                </div>
             </template>
             <template id="template_calendar">
                 <div class="cal_box left">
@@ -123,24 +129,30 @@
                     </div>
                 </div>
             </template>
-            <template>
+            <template id="item_template">
                 <div class="house_item">
                     <div class="image">
                         <img src="../public/img/main_background.png" />
                     </div>
                     <div class="infomation">
-                        <p class="item_location">{{location}}의 아파트 전체</p>
-                        <p class="item_title">{{title}}</p>
-                        <p class="item_options">{{options}}</p>
-                    </div>
-                    <div class="evaluation">
-                        <img />
-                        <p class="score">{{score}}</p>
-                        <p class="num_of_history">(후기 {{numOfHistory}}개)</p>
-                    </div>
-                    <div class="price">
-                        <p class="one_day_price">{{oneDayPrice}} / 박</p>
-                        <p class="all_price">총액 \{{allPrice}}</p>
+                        <p class="neighborhood">
+                            {{neighborhood}}의 아파트 전체
+                        </p>
+                        <p class="room_type">{{room_type}}</p>
+                        <p class="bedrooms">침대 {{bedrooms}}개</p>
+                        <div class="info_under_area">
+                            <div class="evaluation">
+                                <img />
+                                <p class="overall_satisfaction">
+                                    {{overall_satisfaction}}
+                                </p>
+                                <p class="reviews">(후기 {{reviews}}개)</p>
+                            </div>
+                            <div class="price_info">
+                                <p class="price">\{{price}} / 박</p>
+                                <p class="all_price">총액 \{{allPrice}}</p>
+                            </div>
+                        </div>
                     </div>
                     <div class="heart_btn"></div>
                 </div>

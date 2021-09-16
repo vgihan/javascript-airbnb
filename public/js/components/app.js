@@ -1,5 +1,4 @@
 import { Main } from "./main/main";
-import { addImage } from "./add_image";
 import { Component } from "../core/component";
 import { Result } from "./result/result";
 
@@ -26,6 +25,7 @@ class App extends Component {
         } else if (path === "/result") {
             if (!this.resultPageDataValidation()) {
                 alert("필수 입력 값을 입력해야합니다.");
+                window.history.back();
                 new Main($wrap, { submit: this.submit() });
                 return;
             }
@@ -34,19 +34,9 @@ class App extends Component {
     }
     submit() {
         return (inputObj) => {
-            window.history.pushState(
-                inputObj,
-                "",
-                `/result${this.setUrlQuery()}`
-            );
+            window.history.pushState(inputObj, "", "/result");
             this.setState(inputObj);
         };
-    }
-    setUrlQuery() {
-        return Object.keys(this.state).reduce((pre, stateKey) => {
-            pre += `${stateKey}=${this.state[stateKey]}`;
-            return pre;
-        }, "?");
     }
     resultPageDataValidation() {
         const {
@@ -73,5 +63,4 @@ class App extends Component {
 document.addEventListener("DOMContentLoaded", () => {
     const $wrap = document.querySelector(".content_wrap");
     new App($wrap, {});
-    addImage();
 });

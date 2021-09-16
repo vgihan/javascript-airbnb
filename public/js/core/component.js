@@ -17,7 +17,9 @@ export class Component {
     render() {
         this.$target.innerHTML = this.template();
         this.mounted();
+        this.addImage();
     }
+    addImage() {}
     setEvent() {}
     setState(newState) {
         this.state = { ...this.state, ...newState };

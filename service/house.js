@@ -7,7 +7,6 @@ async function itemListService(userCondition) {
         maxPrice,
         sumOfPeople,
     });
-    console.log(rows);
     return rows;
 }
 

@@ -52,7 +52,7 @@
         .item_box {
             display: flex;
             flex-direction: column;
-            width: 50%;
+            width: 830px;
             padding: 35px 35px 35px 35px;
             .items_description {
                 display: flex;
@@ -73,6 +73,73 @@
                     "Trebuchet MS", sans-serif;
                 font-size: 30px;
                 font-weight: bold;
+            }
+            .items {
+                display: flex;
+                flex-direction: column;
+                .house_item {
+                    padding-top: 30px;
+                    padding-bottom: 30px;
+                    display: flex;
+                    flex-direction: row;
+                    .image {
+                        img {
+                            width: 400px;
+                            height: 200px;
+
+                            border-radius: 10px;
+                        }
+                    }
+                    .infomation {
+                        width: 400px;
+                        height: 200px;
+                        margin-left: 30px;
+                        .neighborhood {
+                            color: #777;
+                        }
+                        .room_type {
+                            margin: 10px 0px 10px 0px;
+                            font-weight: bold;
+                            font-size: large;
+                        }
+                        .info_under_area {
+                            position: relative;
+                            align-items: flex-end;
+                            height: 130px;
+                            display: flex;
+                            justify-content: space-between;
+                            .evaluation {
+                                display: flex;
+                                flex-direction: row;
+                                position: relative;
+                                float: left;
+                                left: 0px;
+                                bottom: 0px;
+                                p {
+                                    margin: 0px 3px 0px 3px;
+                                }
+                            }
+                            .price_info {
+                                display: flex;
+                                flex-direction: column;
+                                position: relative;
+                                right: 0px;
+                                bottom: 0px;
+                                .price {
+                                    font-weight: bold;
+                                    margin-bottom: 10px;
+                                }
+                                .all_price {
+                                    color: #777;
+                                    text-decoration: underline;
+                                }
+                            }
+                        }
+                    }
+                }
+                &:not(:last-child) {
+                    border-bottom: 1px solid #bdbdbd;
+                }
             }
         }
         .map_box {
