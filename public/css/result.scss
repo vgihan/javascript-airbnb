@@ -11,9 +11,6 @@
         position: relative;
         width: 100%;
         height: 100px;
-        .header_background {
-            background-image: url("../img/main_background.png");
-        }
         .logo {
             font-size: 50px;
             font-weight: 900;
@@ -50,7 +47,36 @@
     .content {
         display: flex;
         flex-direction: row;
-        width: 50%;
+        width: 100%;
         height: 100%;
+        .item_box {
+            display: flex;
+            flex-direction: column;
+            width: 50%;
+            padding: 35px 35px 35px 35px;
+            .items_description {
+                display: flex;
+                flex-direction: row;
+                .hyphen {
+                    margin-left: 5px;
+                    margin-right: 5px;
+                }
+                p {
+                    font-family: "Noto Sans KR";
+                    font-size: 16px;
+                    color: #555;
+                }
+                margin-bottom: 40px;
+            }
+            .title {
+                font-family: "Gill Sans", "Gill Sans MT", Calibri,
+                    "Trebuchet MS", sans-serif;
+                font-size: 30px;
+                font-weight: bold;
+            }
+        }
+        .map_box {
+            width: 50%;
+        }
     }
 }

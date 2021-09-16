@@ -123,6 +123,28 @@
                     </div>
                 </div>
             </template>
+            <template>
+                <div class="house_item">
+                    <div class="image">
+                        <img src="../public/img/main_background.png" />
+                    </div>
+                    <div class="infomation">
+                        <p class="item_location">{{location}}의 아파트 전체</p>
+                        <p class="item_title">{{title}}</p>
+                        <p class="item_options">{{options}}</p>
+                    </div>
+                    <div class="evaluation">
+                        <img />
+                        <p class="score">{{score}}</p>
+                        <p class="num_of_history">(후기 {{numOfHistory}}개)</p>
+                    </div>
+                    <div class="price">
+                        <p class="one_day_price">{{oneDayPrice}} / 박</p>
+                        <p class="all_price">총액 \{{allPrice}}</p>
+                    </div>
+                    <div class="heart_btn"></div>
+                </div>
+            </template>
         </div>
     </body>
 </html>
