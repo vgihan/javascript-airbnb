@@ -1,9 +1,5 @@
 # javascript-p2-airbnb
 
-## Demo
-
-http://118.67.129.165:3000/
-
 ## View 컴포넌트 구조
 
 ![image](https://user-images.githubusercontent.com/49841765/133251571-5998a852-9011-4e2e-8fd3-3dce98a8bcd7.png)
